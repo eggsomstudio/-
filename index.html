@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>OPIc MASTER · SOM 오픽 마스터</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#F7F5F0">
+<style>
+:root{
+  --ivory:#F7F5F0; --ink:#14130F; --yolk:#FFC400; --card:#FFFEFB;
+  --line:#E6E1D5; --dim:#8C8677; --soft:#EFEBE0; --deep:#232019;
+  --good:#1C7A4D; --goodbg:#E8F4ED; --bad:#B93F2B; --badbg:#FAEAE6;
+  --shadow:0 1px 0 rgba(20,19,15,.04), 0 12px 30px -26px rgba(20,19,15,.85);
+  --sat:env(safe-area-inset-top,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%}
+body{
+  background:var(--ivory);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overscroll-behavior:none;-webkit-text-size-adjust:100%;
+}
+button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer;-webkit-appearance:none}
+b,strong{font-weight:800}
+em{font-style:normal}
+.en{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif}
+
+#app{
+  display:flex;flex-direction:column;height:100vh;height:100dvh;
+  max-width:480px;margin:0 auto;position:relative;background:var(--ivory);
+  box-shadow:0 0 0 1px rgba(20,19,15,.04);
+}
+
+/* ---------------------------------------------------------- header */
+#hdr{
+  flex:none;padding:calc(10px + var(--sat)) 16px 10px;
+  background:linear-gradient(180deg,#FBF9F3 0%,var(--ivory) 100%);
+  border-bottom:1px solid var(--line);z-index:20;
+}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.brand{display:flex;align-items:center;gap:8px;min-width:0}
+.eggmark{
+  width:22px;height:26px;flex:none;background:var(--yolk);
+  border:2px solid var(--ink);border-radius:50% 50% 46% 46%/58% 58% 42% 42%;
+  position:relative;
+}
+.eggmark:after{content:"";position:absolute;left:5px;top:7px;width:4px;height:5px;border-radius:50%;background:var(--ink);box-shadow:8px 0 0 var(--ink)}
+.brand b{font-size:14px;letter-spacing:.14em;font-weight:900}
+.brand small{color:var(--dim);font-size:10.5px;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iconbtn{
+  width:44px;height:44px;border-radius:13px;background:var(--card);border:1px solid var(--line);
+  display:grid;place-items:center;font-size:15px;flex:none;transition:transform .12s;
+}
+.iconbtn:active{transform:scale(.92)}
+.iconbtn.off{opacity:.42}
+
+.gradebar{display:flex;align-items:center;gap:10px;margin-top:10px}
+.chip{
+  display:inline-flex;align-items:center;justify-content:center;gap:4px;
+  height:27px;padding:0 10px;border-radius:9px;background:var(--ink);color:#FFFDF6;
+  font-size:12px;font-weight:900;letter-spacing:.06em;flex:none;
+}
+.chip.ghost{background:transparent;color:var(--dim);border:1px solid var(--line);font-weight:800;letter-spacing:0}
+.chip.fire{background:var(--yolk);color:var(--ink);border:1px solid var(--ink)}
+.xpwrap{flex:1;min-width:0}
+.xpbar{height:7px;border-radius:99px;background:var(--soft);overflow:hidden}
+.xpbar i{display:block;height:100%;width:0%;border-radius:99px;background:var(--yolk);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.xptxt{display:flex;justify-content:space-between;gap:6px;margin-top:4px;font-size:10.5px;color:var(--dim);letter-spacing:-.01em}
+.xptxt b{color:var(--ink);font-weight:800}
+
+/* ---------------------------------------------------------- main */
+#main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:14px 16px 20px}
+.screen{animation:fade .22s ease-out}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.hero{
+  position:relative;background:var(--ink);color:#FFFDF6;border-radius:22px;padding:20px 18px 18px;
+  overflow:hidden;margin-bottom:14px;
+}
+.hero .kicker{font-size:10.5px;letter-spacing:.18em;color:var(--yolk);font-weight:800;margin-bottom:8px}
+.hero h1{font-size:23px;line-height:1.28;margin:0 0 8px;letter-spacing:-.035em;font-weight:800}
+.hero p{margin:0;font-size:12.5px;line-height:1.62;color:#C9C4B6}
+.hero .yolkdot{position:absolute;right:-46px;top:-52px;width:156px;height:156px;border-radius:50%;border:26px solid rgba(255,196,0,.15)}
+.hero .yolkdot:after{display:none}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:var(--shadow);margin-bottom:12px}
+.sectitle{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:18px 2px 9px}
+.sectitle h2{font-size:12px;letter-spacing:.13em;margin:0;font-weight:900;color:var(--ink)}
+.sectitle span{font-size:11px;color:var(--dim)}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:7px;width:100%;min-height:54px;
+  border-radius:16px;background:var(--ink);color:#FFFDF7;font-size:15.5px;font-weight:800;letter-spacing:-.01em;
+  transition:transform .1s ease, opacity .15s;padding:0 16px;
+}
+.btn:active{transform:scale(.975)}
+.btn.accent{background:var(--yolk);color:var(--ink);border:1.5px solid var(--ink)}
+.btn.ghost{background:var(--card);color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
+.btn.ghost:active{background:var(--soft)}
+.btn.line{background:transparent;border:1.5px solid var(--ink);color:var(--ink);box-shadow:none}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.btn.sm{min-height:46px;font-size:14px;border-radius:14px}
+.btnrow{display:flex;gap:8px}
+.btnrow .btn{flex:1}
+
+.pill{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 9px;border-radius:8px;background:var(--soft);color:var(--ink);font-size:11px;font-weight:800;letter-spacing:-.01em}
+.pill.ghost{background:transparent;border:1px solid var(--line);color:var(--dim)}
+.pill.yolk{background:var(--yolk)}
+
+/* ---------------------------------------------------------- tabs */
+#tabs{
+  flex:none;display:flex;gap:4px;padding:7px 10px calc(7px + env(safe-area-inset-bottom,0px));
+  background:rgba(251,249,243,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);z-index:30;
+}
+.tab{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  min-height:54px;border-radius:15px;color:var(--dim);transition:background .16s,color .16s,transform .1s;
+}
+.tab span{font-size:19px;line-height:1;filter:grayscale(1);opacity:.62;transition:.16s}
+.tab em{font-size:10.5px;font-weight:800;letter-spacing:-.02em}
+.tab:active{transform:scale(.96)}
+.tab.on{background:var(--ink);color:#FFFDF7}
+.tab.on span{filter:none;opacity:1;transform:translateY(-1px)}
+
+/* ---------------------------------------------------------- quiz */
+.qtop{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.tbar{height:8px;border-radius:99px;background:var(--soft);overflow:hidden;margin-bottom:14px}
+.tbar i{display:block;height:100%;background:var(--yolk);border-radius:99px;width:100%}
+.tbar i.warn{background:var(--bad)}
+
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 16px 18px;box-shadow:var(--shadow);margin-bottom:14px;position:relative}
+.tagline{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:900;letter-spacing:.08em;color:var(--dim);margin-bottom:9px}
+.tagline:before{content:"";width:14px;height:2px;background:var(--yolk);border-radius:2px}
+.qtext{font-size:17px;line-height:1.5;font-weight:800;letter-spacing:-.03em;margin:0;word-break:keep-all}
+.qen{font-size:16.5px;line-height:1.5;font-weight:600;letter-spacing:-.01em}
+
+.choices{display:flex;flex-direction:column;gap:9px}
+.choice{
+  display:flex;align-items:center;gap:11px;width:100%;min-height:60px;padding:12px 14px;
+  background:var(--card);border:1.5px solid var(--line);border-radius:16px;text-align:left;
+  font-size:14px;line-height:1.45;font-weight:600;letter-spacing:-.015em;color:var(--ink);
+  transition:transform .1s,border-color .15s,background .15s;box-shadow:0 1px 0 rgba(20,19,15,.02);
+}
+.choice i{
+  flex:none;width:24px;height:24px;border-radius:8px;background:var(--soft);color:var(--dim);
+  display:grid;place-items:center;font-size:11.5px;font-weight:900;font-style:normal;
+}
+.choice:active{transform:scale(.985);background:#FCFAF4}
+.choice.ok{border-color:var(--good);background:var(--goodbg);color:var(--good)}
+.choice.ok i{background:var(--good);color:#fff}
+.choice.bad{border-color:var(--bad);background:var(--badbg);color:var(--bad)}
+.choice.bad i{background:var(--bad);color:#fff}
+.choice.dim{opacity:.5}
+.choice.shake{animation:shake .34s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+
+.xpfly{
+  position:absolute;right:16px;top:8px;font-size:13px;font-weight:900;color:var(--good);
+  animation:fly .9s ease-out forwards;pointer-events:none;
+}
+@keyframes fly{0%{opacity:0;transform:translateY(8px)}25%{opacity:1}100%{opacity:0;transform:translateY(-26px)}}
+
+/* ---------------------------------------------------------- story */
+.topiclist{display:flex;flex-direction:column;gap:9px}
+.topic{
+  display:flex;align-items:center;gap:11px;width:100%;padding:13px 14px;min-height:62px;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;text-align:left;transition:transform .1s;
+}
+.topic:active{transform:scale(.985)}
+.topic .emo{flex:none;width:38px;height:38px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:18px}
+.topic .tx{flex:1;min-width:0}
+.topic .tx b{display:block;font-size:14px;font-weight:800;letter-spacing:-.025em;margin-bottom:2px}
+.topic .tx small{display:block;font-size:11px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topic .st{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px dashed var(--line);display:grid;place-items:center;font-size:11px;color:var(--dim)}
+.topic.done .st{background:var(--ink);border:1.5px solid var(--ink);color:var(--yolk)}
+.topic.done{background:#FBFAF5}
+
+.slots{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.slot{
+  display:flex;align-items:flex-start;gap:9px;min-height:38px;padding:8px 11px;border-radius:12px;
+  border:1.5px dashed var(--line);background:#FCFAF5;font-size:11.5px;line-height:1.45;color:var(--dim);
+}
+.slot.filled{border:1.5px solid var(--ink);background:var(--card);color:var(--ink);animation:pop .26s ease-out}
+.slot .nm{flex:none;font-weight:900;font-size:10px;letter-spacing:.02em;color:var(--dim);padding-top:2px;width:48px;white-space:nowrap}
+.slot.filled .nm{color:var(--ink)}
+.slot .en2{font-size:11.5px;line-height:1.5}
+@keyframes pop{0%{transform:scale(.96);opacity:.6}100%{transform:scale(1);opacity:1}}
+
+.pool{display:flex;flex-direction:column;gap:9px}
+.scard{
+  width:100%;text-align:left;padding:13px 14px;border-radius:16px;background:var(--card);
+  border:1.5px solid var(--line);box-shadow:var(--shadow);transition:transform .1s,border-color .15s;
+}
+.scard:active{transform:scale(.985)}
+.scard .en{display:block;font-size:12.5px;line-height:1.55;margin-bottom:5px}
+.scard .ko{display:block;font-size:11px;line-height:1.5;color:var(--dim);word-break:keep-all}
+.scard.shake{animation:shake .34s;border-color:var(--bad)}
+.scard.used{opacity:0;pointer-events:none;transform:scale(.94);height:0;padding:0;margin:0;border:0;overflow:hidden;transition:all .2s}
+
+/* ---------------------------------------------------------- mock */
+.ava{display:flex;flex-direction:column;align-items:center;gap:6px;margin:4px 0 14px}
+.avafig{width:96px;height:104px;filter:drop-shadow(0 10px 18px rgba(20,19,15,.14))}
+.ava .nm2{font-size:10.5px;letter-spacing:.16em;color:var(--dim);font-weight:900}
+.mouth{transform-origin:60px 80px}
+.talking .mouth{animation:talk .28s infinite}
+@keyframes talk{0%,100%{transform:scaleY(1)}50%{transform:scaleY(3.2)}}
+.blink{animation:blink 4.6s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%,98%{transform:scaleY(.1)}}
+
+.qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+
+.tbox{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.ringwrap{position:relative;width:76px;height:76px;flex:none}
+.ring{width:76px;height:76px;transform:rotate(-90deg)}
+.ring .rbg{fill:none;stroke:var(--soft);stroke-width:7}
+.ring .rfg{fill:none;stroke:var(--yolk);stroke-width:7;stroke-linecap:round;stroke-dasharray:276.5;stroke-dashoffset:0;transition:stroke-dashoffset .2s linear,stroke .3s}
+.ring .rfg.low{stroke:var(--bad)}
+.ringtxt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.ringtxt b{font-size:21px;font-weight:900;letter-spacing:-.04em;line-height:1}
+.ringtxt small{font-size:9px;letter-spacing:.12em;color:var(--dim);font-weight:800}
+.tbox .side{flex:1;min-width:0}
+.tbox .side p{margin:0 0 8px;font-size:11.5px;line-height:1.45;color:var(--dim)}
+.tbox .side .btnrow{gap:7px}
+
+.model{background:#FBFAF5;border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:12px;animation:fade .2s}
+.model h4{margin:0 0 8px;font-size:11px;letter-spacing:.1em;color:var(--dim);font-weight:900}
+.model .en{font-size:13px;line-height:1.72;margin:0 0 10px;letter-spacing:-.005em}
+.model .ko{font-size:11.5px;line-height:1.62;color:var(--dim);margin:0 0 12px;word-break:keep-all}
+.pt{display:flex;gap:8px;font-size:11.5px;line-height:1.55;margin-bottom:7px;word-break:keep-all}
+.pt > b{flex:none;width:17px;height:17px;border-radius:6px;background:var(--yolk);display:grid;place-items:center;font-size:9.5px;font-weight:900;margin-top:1px}
+/* ---------------------------------------------------------- sheet / overlays */
+.sheet{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;background:rgba(20,19,15,.45);animation:fade .18s}
+.sheet.hidden{display:none}
+.sheetin{
+  width:100%;max-width:480px;margin:0 auto;background:var(--ivory);
+  border-radius:26px 26px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));
+  animation:up .26s cubic-bezier(.2,.8,.2,1);max-height:86vh;overflow-y:auto;
+}
+@keyframes up{from{transform:translateY(28px)}to{transform:none}}
+.grab{width:38px;height:4px;border-radius:99px;background:var(--line);margin:0 auto 14px}
+.sheet h3{margin:0 0 4px;font-size:12px;letter-spacing:.1em;color:var(--dim);font-weight:900}
+.sheet .ans{font-size:15px;line-height:1.5;font-weight:800;letter-spacing:-.02em;margin:0 0 10px;word-break:keep-all}
+.sheet .ex{font-size:12.5px;line-height:1.65;color:#4A463D;margin:0 0 16px;word-break:keep-all}
+.sheet .en-s{font-family:"Iowan Old Style",Georgia,serif;font-size:13px}
+
+.levelup{position:fixed;inset:0;z-index:70;display:grid;place-items:center;background:rgba(20,19,15,.6);padding:24px}
+.levelup.hidden{display:none}
+.lvcard{
+  width:100%;max-width:330px;background:var(--yolk);border:2px solid var(--ink);border-radius:26px;
+  padding:26px 22px;text-align:center;box-shadow:0 24px 60px -20px rgba(0,0,0,.5);animation:pop2 .4s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes pop2{0%{transform:scale(.82);opacity:0}100%{transform:scale(1);opacity:1}}
+.lvcard .k{font-size:10.5px;letter-spacing:.2em;font-weight:900;margin-bottom:6px}
+.lvcard .g{font-size:62px;font-weight:900;letter-spacing:-.05em;line-height:1;margin:6px 0 4px;font-family:"Iowan Old Style",Georgia,serif}
+.lvcard .d{font-size:12px;line-height:1.5;margin:0 0 18px;word-break:keep-all;color:#3A352A}
+
+#toast{
+  position:fixed;left:50%;transform:translateX(-50%) translateY(10px);bottom:calc(80px + env(safe-area-inset-bottom,0px));
+  background:var(--ink);color:#FFFDF7;font-size:12.5px;font-weight:700;letter-spacing:-.01em;
+  padding:11px 15px;border-radius:13px;max-width:88%;text-align:center;line-height:1.45;word-break:keep-all;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:65;box-shadow:0 10px 30px -12px rgba(0,0,0,.5);
+}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* helpers */
+.mt8{margin-top:8px}.mt12{margin-top:12px}.mb0{margin-bottom:0}
+.center{text-align:center}
+.hidden{display:none!important}
+.small{font-size:11.5px;color:var(--dim);line-height:1.55}
+.strike{text-decoration:line-through;opacity:.5}
+.divider{height:1px;background:var(--line);margin:14px 0}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chips button{
+  padding:9px 12px;border-radius:11px;background:var(--card);border:1.5px solid var(--line);
+  font-size:12px;font-weight:800;letter-spacing:-.02em;min-height:44px;
+}
+.backbtn{
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 13px;
+  border-radius:13px;border:1px solid var(--line);background:transparent;color:var(--dim);
+  font-size:12px;font-weight:800;letter-spacing:-.02em;
+}
+.backbtn:active{background:var(--soft)}
+.chips button:active{background:var(--soft)}
+.chips button.on{background:var(--ink);color:#FFFDF7;border-color:var(--ink)}
+.stat{display:flex;gap:8px}
+.stat > div{flex:1;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:11px;text-align:center}
+.stat b{display:block;font-size:20px;font-weight:900;letter-spacing:-.04em;line-height:1.1}
+.stat small{font-size:9.5px;letter-spacing:.09em;color:var(--dim);font-weight:800}
+.result{text-align:center;padding:8px 4px 4px}
+.result .big{font-size:30px;font-weight:900;letter-spacing:-.05em;margin:2px 0}
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="hdr">
+    <div class="hrow">
+      <div class="brand">
+        <span class="eggmark"></span>
+        <b>OPIc MASTER</b>
+        <small>· for SOM</small>
+      </div>
+      <button id="muteBtn" class="iconbtn" aria-label="소리">🔊</button>
+    </div>
+    <div class="gradebar">
+      <span class="chip" id="gradeChip">IL</span>
+      <div class="xpwrap">
+        <div class="xpbar"><i id="xpFill"></i></div>
+        <div class="xptxt"><span id="xpTxt"><b>0</b> XP</span><span id="nextTxt">IM1까지 120</span></div>
+      </div>
+      <span class="chip ghost" id="comboChip">🔥 0</span>
+    </div>
+  </header>
+
+  <main id="main"></main>
+
+  <nav id="tabs">
+    <button class="tab on" data-tab="quiz"><span>⚡</span><em>스피드 퀴즈</em></button>
+    <button class="tab" data-tab="story"><span>🧩</span><em>스토리 조립</em></button>
+    <button class="tab" data-tab="mock"><span>🎙️</span><em>모의고사</em></button>
+  </nav>
+</div>
+
+<div id="sheet" class="sheet hidden"><div class="sheetin" id="sheetin"></div></div>
+<div id="levelup" class="levelup hidden"><div class="lvcard" id="lvcard"></div></div>
+<div id="toast"></div>
+<script>
+/* =====================================================================
+   OPIc MASTER · SOM 맞춤 모바일 학습 게임
+   데이터 출처: work/opic/ 오픽 IH 완성북 (CH3 뼈대·필러, CH4 3콤보,
+   CH5 돌발·롤플레이·어드밴스). 외부 라이브러리 없음.
+   ===================================================================== */
+
+/* ---------------------------------------------------------- 스피드 퀴즈 36문항 */
+const QUIZ = [
+  {tag:"필러 · 시간 벌기", q:"질문을 듣고 3초가 비었다. 가장 먼저 쓸 문장은?",
+   c:["That's a good question. Let me think for a second.",
+      "So, you're asking about the café I usually go to, right?",
+      "Anyway, what I'm trying to say is…",
+      "So, yeah, that's pretty much it."], a:0,
+   ex:"가장 무난한 시작입니다. 나머지 셋은 각각 되묻기·복귀·마무리 신호라서 아직 쓸 자리가 아닙니다. 침묵 3초는 실력처럼 들리지 않습니다."},
+
+  {tag:"필러 · 되묻기", q:"질문을 내 말로 바꿔 시작하는 문장은?",
+   c:["So, you're asking about the café I usually go to, right?",
+      "I don't know the exact word, but it's like a small shelf for books.",
+      "The thing is, it's not just about the food.",
+      "I'm not sure about the exact number, but it was around twenty."], a:0,
+   ex:"되묻기는 시간 5초를 벌면서 정확성까지 올립니다. 질문을 다시 말하는 동안 시제가 정리됩니다."},
+
+  {tag:"필러 · 단어 우회", q:"단어가 안 떠오를 때, 멈추지 않고 넘어가는 표현은?",
+   c:["I don't know the exact word, but it's like a small shelf for books.",
+      "That's a good question. Let me think for a second.",
+      "Going back to what I said earlier…",
+      "So, yeah, that's pretty much it."], a:0,
+   ex:"설명으로 우회하는 힘이 IH를 만듭니다. 'It's a thing that you use to…' 틀 하나면 어떤 단어든 대체됩니다."},
+
+  {tag:"필러 · 복귀", q:"말이 꼬였을 때 본론으로 돌아오는 표현은?",
+   c:["Anyway, what I'm trying to say is…",
+      "This actually reminds me of something that happened last winter.",
+      "To be honest, I have mixed feelings about that.",
+      "I was wondering if you could help me with something."], a:0,
+   ex:"사과는 한 번이면 충분합니다. 'Anyway, what I'm trying to say is…'로 조용히 다시 시작하세요."},
+
+  {tag:"필러 · 돌발 방어", q:"경험이 없는 주제가 나왔을 때 가장 좋은 대응은?",
+   c:["I haven't really done that, but I can tell you about something similar.",
+      "That's a good question. Let me think for a second.",
+      "Compared to a few years ago, it's completely different.",
+      "I don't know the exact word, but it's like a small tool."], a:0,
+   ex:"모른다고 말하고 가까운 경험으로 옮기는 것이 거짓말보다 훨씬 좋은 답입니다."},
+
+  {tag:"필러 · 숫자 회피", q:"숫자가 기억나지 않을 때 쓰는 표현은?",
+   c:["I'm not sure about the exact number, but it was around twenty.",
+      "I can't remember the name, but it's the one right next to the park.",
+      "Let me see… how should I put this…",
+      "I haven't really done that, but I can tell you about something similar."], a:0,
+   ex:"숫자를 비우면 디테일 점수가 날아갑니다. 'around'로 감싸서 말하면 디테일은 남습니다."},
+
+  {tag:"필러 · 이름 회피", q:"고유명사가 기억나지 않을 때는?",
+   c:["I can't remember the name, but it's the one right next to the park.",
+      "I'm not sure about the exact number, but it was around twenty.",
+      "Hmm, where should I start…",
+      "Right, so the thing is…"], a:0,
+   ex:"이름 대신 위치·생김새로 가리키면 됩니다. 이름을 지어내는 것보다 훨씬 안전합니다."},
+
+  {tag:"시제 · 경험", q:"경험(과거) 이야기를 시작하는 틀은?",
+   c:["A few years ago, I…",
+      "I usually…",
+      "These days, I've been trying to…",
+      "I'm planning to… by the end of the year."], a:0,
+   ex:"묘사는 현재, 경험은 과거, 변화는 현재완료. 답변 첫 문장에서 시제를 정하고 끝까지 유지하세요."},
+
+  {tag:"시제 · 현재완료", q:"최근 변화와 계속을 말하는 문장은?",
+   c:["I've lived here for about four years.",
+      "I lived here four years ago.",
+      "I live here for four years.",
+      "I'm living here since four years."], a:0,
+   ex:"'for + 기간'은 현재완료와 짝입니다. since는 시점, for는 기간 — 이 구분 하나로 Accuracy가 올라갑니다."},
+
+  {tag:"시제 · 감점 포인트", q:"경험을 말할 때 가장 흔한 감점은?",
+   c:["과거 이야기 중간에 현재형으로 돌아오는 것",
+      "감정을 한 문장 넣는 것",
+      "고유명사를 말하는 것",
+      "결론을 한 줄로 정리하는 것"], a:0,
+   ex:"'When I was in Phu Quoc, I find a cockroach…' — 이 한 번으로 4번 문항의 인상이 바뀝니다. -ed를 붙이는 습관을 들이세요."},
+
+  {tag:"시제 · 문장 정확성", q:"푸꾸옥에서 바퀴벌레를 본 경험, 문법이 맞는 문장은?",
+   c:["When I was in Phu Quoc, I found a large cockroach in my room.",
+      "When I was in Phu Quoc, I find a large cockroach in my room.",
+      "When I am in Phu Quoc, I was finding a large cockroach in my room.",
+      "When I have been in Phu Quoc, I find a cockroach in my room."], a:0,
+   ex:"과거 배경은 was, 사건 동사는 found. 시제 두 개를 같은 문장에서 정확히 쓰는 것이 IH의 기준입니다."},
+
+  {tag:"시제 · 과거완료", q:"스노클링이 처음이었다는 배경을 말하는 문장은?",
+   c:["I'd never snorkeled before, so I was a bit nervous.",
+      "I never snorkel before, so I am a bit nervous.",
+      "I've never snorkel before, so I was a bit nervous.",
+      "I don't never snorkel before, so I was a bit nervous."], a:0,
+   ex:"과거완료 + 감정의 조합은 IH의 전형적인 문장입니다. '그 전에는 해본 적이 없었다'를 한 문장으로 넣으세요."},
+
+  {tag:"감정 · 강도", q:"'I was completely ___ , but also really proud.' — 강도가 가장 센 형용사는?",
+   c:["exhausted","a bit tired","kind of awkward","a little nervous"], a:0,
+   ex:"completely와 붙는 건 강한 형용사입니다. a bit·kind of는 약한 강도라서 completely와 어울리지 않습니다."},
+
+  {tag:"감정 · 여운", q:"감정 사다리의 '여운' 단계에 해당하는 문장은?",
+   c:["That moment really stayed with me.","I was a bit nervous at first.","Honestly, I was pretty annoyed.","I was completely exhausted."], a:0,
+   ex:"약·중·강·여운 네 단계 중 여운은 'It stayed with me / I still think about it / I've never forgotten'입니다. 결론 직전에 붙이면 답변이 남습니다."},
+
+  {tag:"감정 · 세 가지 틀", q:"감정을 말하는 세 가지 틀에 들어가지 않는 것은?",
+   c:["I think it is good because it is good.","I was + 형용사","It made me feel + 형용사","To be honest, …"], a:0,
+   ex:"세 틀에 형용사만 끼우면 어떤 주제든 감정 단이 완성됩니다. 이유를 이유로 설명하는 문장은 감정이 아닙니다."},
+
+  {tag:"구동사 · over and over", q:"'I put on the same album over and over.' 에서 over and over의 뜻은?",
+   c:["반복해서","아주 천천히","한 번만","완전히"], a:0,
+   ex:"'같은 앨범을 반복해서 튼다' — 모델링할 때 필요한 크고 반복적인 소리를 설명하는 표현입니다."},
+
+  {tag:"구동사 · straight away", q:"'I put my headphones on straight away.' 에서 straight away의 뜻은?",
+   c:["즉시","똑바로 서서","멀리","조용히"], a:0,
+   ex:"바로 그 자리에서, 곧바로. 'right away'와 같은 뜻으로 쓸 수 있습니다."},
+
+  {tag:"구동사 · wrap up", q:"'I usually wrap up around midnight.' 에서 wrap up의 뜻은?",
+   c:["작업을 마무리하다","포장을 풀다","자리를 옮기다","일을 미루다"], a:0,
+   ex:"시간과 함께 쓰이면 '마무리하다'입니다. 포장하다는 뜻도 있지만 around midnight와 붙으면 작업 종료입니다."},
+
+  {tag:"구동사 · block out", q:"'Then I usually block out shapes for a couple of hours.' 에서 block out의 뜻은?",
+   c:["형태를 크게 잡아 나가다(블록 아웃)","도형을 지우다","색을 칠하다","렌더링을 걸다"], a:0,
+   ex:"3D·디자인 작업에서 block out은 덩어리로 형태를 잡는 첫 단계입니다. '순수한 디자인이라 가장 좋아하는 부분'이라고 이어집니다."},
+
+  {tag:"구동사 · take forever", q:"'Lighting and rendering takes forever.' 의 뜻에 가장 가까운 것은?",
+   c:["정말 오래 걸린다","영원히 끝나지 않는다(불가능하다)","아주 빨리 끝난다","가끔 걸린다"], a:0,
+   ex:"과장 표현입니다. 실제로 영원하다는 뜻이 아니라 '체감상 끝이 없다'는 뜻으로, 작업 루틴 답변에 리듬을 줍니다."},
+
+  {tag:"구동사 · get around", q:"'How do you get around in your area?' 에서 get around의 뜻은?",
+   c:["이동하다, 돌아다니다","돌아오다","피해 가다","일어나다"], a:0,
+   ex:"교통 돌발에서 그대로 쓰는 표현입니다. 'I usually take the bus or the subway.'로 이어가면 됩니다."},
+
+  {tag:"구동사 · deal with", q:"'I know I'll have to deal with it later.' 에서 deal with의 뜻은?",
+   c:["그것을 처리하다","그것을 나눠 갖다","그것을 버리다","그것을 미루다"], a:0,
+   ex:"재활용·포장 이야기에서 나온 문장입니다. '처리해야 할 걸 알기 때문에 덜 사게 된다'로 이어집니다."},
+
+  {tag:"구동사 · fresh eye", q:"'I come back with a fresh eye.' 와 가장 가까운 뜻은?",
+   c:["새로운 눈으로 다시 본다","눈을 씻고 온다","눈이 아파서 돌아온다","다시는 안 본다"], a:0,
+   ex:"막혔을 때 공원을 걷고 돌아오는 이유를 한 문장으로 설명합니다. 습관 답변에 이유를 붙여 줍니다."},
+
+  {tag:"구동사 · just in case", q:"'I always save three versions of the file, just in case.' 에서 just in case의 뜻은?",
+   c:["혹시 모르니","경우에 따라","정확히","결국에는"], a:0,
+   ex:"짧은 꼬리 표현이 여유의 신호입니다. '혹시 모르니' 세 개 버전을 저장한다 — 이 한 마디로 문장이 살아납니다."},
+
+  {tag:"롤플레이 · 11번 도입", q:"11번 정보 묻기, 첫 문장으로 가장 알맞은 것은?",
+   c:["I was wondering if you could help me with something.",
+      "Give me some information, please.",
+      "I need a room right now.",
+      "Hello, why is it like this?"], a:0,
+   ex:"전화·방문의 첫 문장은 정중함이 점수입니다. 가정법 'I was wondering if…'가 가장 안전합니다."},
+
+  {tag:"롤플레이 · 12번 채점", q:"12번 문제 해결에서 실제로 채점 대상이 되는 것은?",
+   c:["요청과 대안 제시","반복되는 사과","불평과 화내기","조용히 참기"], a:0,
+   ex:"12번은 사과가 아니라 요청과 대안이 채점 대상입니다. 상황 → 요청 → 대안 3단으로 말합니다."},
+
+  {tag:"롤플레이 · 핵심 문장", q:"방에 벌레가 나왔을 때, 정중하지만 물러서지 않는 문장은?",
+   c:["I understand these things happen, but I really can't stay in this room.",
+      "It's okay. I will just sleep here.",
+      "Sorry, sorry, sorry. I'm so sorry.",
+      "This hotel is terrible and you are all bad."], a:0,
+   ex:"실제로 푸꾸옥에서 쓴 문장입니다. 'I understand, but I really can't…' — 인정 한 번, 거절 한 번이 핵심입니다."},
+
+  {tag:"롤플레이 · 13번 연결", q:"13번을 12번과 자연스럽게 잇는 첫 문장은?",
+   c:["Yes, actually — that's exactly what happened to me on my last trip.",
+      "No, I never had any problem in my life.",
+      "I don't remember anything about that.",
+      "Next question, please."], a:0,
+   ex:"12번에서 연기한 사건을 13번에서 '과거 경험'으로 다시 정리하면 완벽하게 이어집니다."},
+
+  {tag:"롤플레이 · 금지 사항", q:"롤플레이에서 절대 하지 말아야 할 것은?",
+   c:["11~13번을 스킵하는 것","질문을 4개 하는 것","대안을 제시하는 것","감정을 한 문장 넣는 것"], a:0,
+   ex:"11~13번을 건너뛰면 등급이 크게 떨어집니다. 11번은 '질문' 자체가 과제입니다."},
+
+  {tag:"돌발 · 3단 구조", q:"돌발 주제의 기본 3단 순서는?",
+   c:["제도 설명 → 내 경험 → 감정","감정 → 제도 설명 → 경험","질문 → 농담 → 침묵","경험 → 감정 → 사과"], a:0,
+   ex:"날씨·은행·명절·교통·재활용·병원 모두 같은 구조입니다. 내가 그 제도와 부딪힌 경험 한 번이면 3문장이 나옵니다."},
+
+  {tag:"돌발 · 만능 시작", q:"돌발에서 첫 문장으로 쓰는 만능 표현은?",
+   c:["Well, in Korea, we usually…","I have no idea about that.","Why do I need to answer that?","That's not my topic."], a:0,
+   ex:"제도 설명으로 시작하면 모르는 주제도 30초가 나옵니다. 이어서 'For example, last year I…'를 붙이세요."},
+
+  {tag:"어드밴스 · 14번 비교", q:"14번 비교의 올바른 순서는?",
+   c:["지금 → 예전 → 이유 → 내 생각","예전 → 지금 → 감정 → 결론","이유 → 내 생각 → 지금 → 예전","내 생각 → 예전 → 지금"], a:0,
+   ex:"지금을 먼저 말해야 'people used to…'가 자연스럽게 나옵니다. 예전을 먼저 꺼내면 시제가 꼬입니다."},
+
+  {tag:"어드밴스 · 15번 의견", q:"15번 의견의 가장 안전한 4단은?",
+   c:["양가 입장 → 이유 2개 → 내 경험 → 조건부 결론","찬성 → 찬성 → 찬성 → 찬성","예전 → 지금 → 이유 → 평가","감정 → 결론 → 감정"], a:0,
+   ex:"'To be honest, I have mixed feelings about this.'로 열고, On one hand / On the other hand로 이유를 나눕니다."},
+
+  {tag:"어드밴스 · 등급 가르기", q:"'I think it's good'에서 멈추지 않고 IH~AL로 가는 문장은?",
+   c:["I think it's good, but I understand why some people disagree.",
+      "I think it's good, good, good.",
+      "I don't care about it at all.",
+      "It's good because it is good."], a:0,
+   ex:"반대편을 한 번 인정하는 것만으로 답변이 두 단계 올라갑니다. 14·15번은 정보의 양이 아니라 사고의 흔적을 봅니다."},
+
+  {tag:"어드밴스 · 도구 비유", q:"기술 이슈(AI)를 도구에 비유하는 문장은?",
+   c:["AI is a tool, like a camera — it doesn't decide anything by itself.",
+      "AI is a magic that does everything for us.",
+      "AI will replace all designers soon.",
+      "AI is not my business, honestly."], a:0,
+   ex:"카메라·계산기·번역기 중 하나만 준비하면 어떤 기술 질문에도 대응됩니다. 마지막은 'as long as designers stay responsible for the idea.'"},
+
+  {tag:"필러 · 마무리 신호", q:"결론 직전, 답변을 닫는 신호로 알맞은 것은?",
+   c:["So, yeah, that's pretty much it.","Wait, one more thing, and also, and…","I forgot what I was saying.","Question, please."], a:0,
+   ex:"마무리 신호를 주면 시험관이 다음 문항으로 넘길 준비를 합니다. 답변이 끝나면 바로 다음 문제로 넘기세요."}
+];
+
+/* ---------------------------------------------------------- 4단 스토리 조립 9주제 */
+const STORY = [
+  {id:"st-nonfinito", emo:"🖼️", title:"졸전 〈Non Finito〉", sub:"경험 · 두 달 새벽과 오프닝 밤", cards:[
+    {s:"서론", en:"The project I'm most proud of is my graduation exhibition, Non Finito.", ko:"가장 자랑스러운 작업은 졸업전시 〈Non Finito〉입니다."},
+    {s:"본론", en:"It was a 3D installation about the feeling of being unfinished, and I was in charge of the whole visual side — modeling, lighting, sound, and even the poster. For about two months, I was at school until two or three in the morning almost every day.", ko:"‘끝나지 않은 느낌’을 주제로 한 3D 설치 작업이었고, 비주얼 전반을 맡았습니다. 두 달 동안 거의 매일 새벽 두세 시까지 학교에 있었어요."},
+    {s:"감정", en:"There were moments when I honestly wanted to give up, but on the opening night, when people stood in front of the screen and just stayed there, I felt something I'd never felt before.", ko:"포기하고 싶은 순간도 있었지만, 오프닝 날 밤 사람들이 화면 앞에 머무는 걸 보고 처음 느껴보는 감정이 들었습니다."},
+    {s:"결론", en:"That was the first time I thought, okay, this is what I want to do for the rest of my life.", ko:"그때 처음으로 ‘이걸 평생 하고 싶다’고 생각했습니다."}]},
+
+  {id:"st-jungsan", emo:"🌳", title:"일산 중산동", sub:"묘사 · 낮은 층과 5분 거리 공원", cards:[
+    {s:"서론", en:"I live in Jungsan-dong, which is in Ilsan, just outside Seoul.", ko:"저는 서울 바로 밖, 일산의 중산동에 삽니다."},
+    {s:"본론", en:"It's a quiet residential area with a lot of parks and low apartment buildings. My apartment is on a low floor, so I can see trees from my window instead of other buildings, and there's a big park about five minutes away.", ko:"공원과 낮은 아파트가 많은 조용한 주거 지역입니다. 낮은 층이라 창밖으로 다른 건물 대신 나무가 보이고, 오 분 거리에 큰 공원이 있어요."},
+    {s:"감정", en:"Honestly, it feels a bit slow compared to the city — but I've grown to like that.", ko:"솔직히 도시에 비하면 좀 느린 느낌인데, 이제는 그게 좋아졌습니다."},
+    {s:"결론", en:"It's nothing fancy, but everything I need — the market, the café, the bus stop — is within ten minutes.", ko:"특별한 동네는 아니지만 필요한 건 전부 십 분 안에 있습니다."}]},
+
+  {id:"st-hopping", emo:"🏝️", title:"푸꾸옥 호핑투어", sub:"경험 · 세 개의 섬, 스노클", cards:[
+    {s:"서론", en:"The best day of my trip to Phu Quoc was the island hopping tour.", ko:"푸꾸옥 여행에서 가장 좋았던 날은 섬 호핑투어였습니다."},
+    {s:"본론", en:"We left at nine in the morning on a small boat with about fifteen other people, and we stopped at three different islands — one for snorkeling, one for lunch, and one that was almost empty.", ko:"아침 아홉 시에 십오 명과 작은 배를 타고 출발해 세 섬에 들렀습니다 — 스노클링, 점심, 거의 비어 있는 섬."},
+    {s:"감정", en:"I'd never snorkeled properly before, so I was a bit nervous, but at one point a school of small fish swam right past my face, and I actually laughed into my snorkel.", ko:"제대로 스노클링을 해본 적이 없어 긴장했는데, 물고기 떼가 얼굴 옆을 지나가서 스노클 안에서 웃음이 났습니다."},
+    {s:"결론", en:"We came back at sunset, completely exhausted and sunburned, and I slept for twelve hours straight.", ko:"해질녘에 지치고 볕에 탄 채 돌아와 열두 시간을 잤습니다."}]},
+
+  {id:"st-roach", emo:"🪳", title:"리조트 방 교체", sub:"문제 해결 · 12번 롤플레이 실화", cards:[
+    {s:"서론", en:"I'm sorry to bring this up, but there's a problem with my room.", ko:"번거롭게 해서 죄송한데, 객실에 문제가 있습니다."},
+    {s:"본론", en:"I found a large cockroach in the bathroom last night, and this morning I saw another one near the bed, so I went down to the front desk. At first they only offered to clean the room, so I had to be firm and explain that I couldn't sleep there.", ko:"어젯밤 화장실에서, 아침에 침대 옆에서 또 한 마리를 봐서 프론트로 내려갔습니다. 처음엔 청소만 하겠다고 해서 잘 수 없다고 단호하게 말해야 했어요."},
+    {s:"감정", en:"In the end they moved us to a different building, but they charged me extra for the upgrade, which honestly annoyed me.", ko:"결국 다른 건물로 옮겨 주었지만 업그레이드 비용을 받아서 솔직히 짜증났습니다."},
+    {s:"결론", en:"Looking back, I'm proud that I handled it in English without panicking — and next time I'll read the reviews much more carefully.", ko:"돌아보면 당황하지 않고 영어로 해결한 게 뿌듯하고, 다음엔 리뷰를 훨씬 꼼꼼히 볼 겁니다."}]},
+
+  {id:"st-cafe", emo:"☕", title:"비 오는 날 카페", sub:"경험 · 턴테이블과 막힌 디자인", cards:[
+    {s:"서론", en:"I remember one rainy afternoon at my favorite café very clearly.", ko:"가장 좋아하는 카페에서의 비 오는 오후가 아주 선명하게 기억납니다."},
+    {s:"본론", en:"I had a deadline the next morning and I was completely stuck, so I went there to escape my room. The owner was playing an old jazz record on a real turntable, and there was only one other customer.", ko:"다음 날 아침 마감인데 완전히 막혀서 방을 벗어나려 그곳에 갔습니다. 주인장은 진짜 턴테이블로 옛 재즈를 틀고 있었고 손님은 한 명뿐이었어요."},
+    {s:"감정", en:"At some point the rain got heavier and the street went quiet, and I suddenly knew exactly what to do — I finished the whole design in two hours.", ko:"어느 순간 비가 세지고 골목이 조용해졌는데, 갑자기 어떻게 풀어야 할지 알겠더군요. 두 시간 만에 전부 끝냈습니다."},
+    {s:"결론", en:"I still can't explain it. Sometimes you just need the right room and the right song.", ko:"아직도 설명이 안 됩니다. 가끔은 그냥 맞는 방과 맞는 노래가 필요한 것 같아요."}]},
+
+  {id:"st-diet", emo:"🏃", title:"30일 다이어트", sub:"계획 · 두 끼와 매일 한 번 산책", cards:[
+    {s:"서론", en:"Recently I decided to take my health seriously, because I realized I'd been ignoring it for years.", ko:"최근에 건강을 진지하게 챙기기로 했습니다. 몇 년 동안 외면해 왔다는 걸 깨달았거든요."},
+    {s:"본론", en:"I made a thirty-day plan: two meals a day, no late-night snacks, and at least one walk every evening. The first week was horrible — I almost quit on day four.", ko:"30일 계획을 세웠습니다 — 하루 두 끼, 야식 금지, 저녁마다 산책. 첫 주는 끔찍했고 나흘째에 거의 포기할 뻔했어요."},
+    {s:"감정", en:"What helped me was writing down every single day on a calendar, so I could see the streak building. I'm still at the beginning, but I sleep much better now.", ko:"도움이 된 건 달력에 하루하루 적는 것이었습니다. 연속 기록이 보였거든요. 아직 시작이지만 잠을 훨씬 잘 잡니다."},
+    {s:"결론", en:"My goal is to keep it going until the end of the year.", ko:"목표는 연말까지 계속하는 것입니다."}]},
+
+  {id:"st-intro", emo:"🥚", title:"자기소개 & 3D", sub:"1번 · 이름에서 취미까지 여섯 문장", cards:[
+    {s:"서론", en:"Hi, my name is Somi Yoon, and I'm a senior at Sookmyung Women's University, majoring in visual design.", ko:"안녕하세요, SOM이고 숙명여자대학교 4학년, 시각·영상디자인 전공입니다."},
+    {s:"본론", en:"I mainly do 3D graphics — I work with Cinema 4D, Blender, and Unreal Engine — and I just finished my graduation project, which was a 3D exhibition called Non Finito.", ko:"주로 3D 그래픽을 합니다 — 시네마4D, 블렌더, 언리얼 엔진을 쓰고, 〈Non Finito〉라는 3D 전시로 졸업 프로젝트를 마쳤습니다."},
+    {s:"감정", en:"These days I'm trying to turn my personal work into a small studio called Egg Somi, which honestly scares me a little — but in a good way.", ko:"요즘은 제 작업을 ‘에그소미’라는 작은 스튜디오로 만들려고 합니다. 솔직히 조금 무섭지만 좋은 쪽으로요."},
+    {s:"결론", en:"When I'm not working, I like going to exhibitions, watching movies, and taking long walks. It's nice to meet you.", ko:"작업하지 않을 때는 전시, 영화, 긴 산책을 좋아합니다. 만나서 반갑습니다."}]},
+
+  {id:"st-typo", emo:"🔤", title:"타이포 전시의 스케치 벽", sub:"경험 · 지워진 실수들", cards:[
+    {s:"서론", en:"The most memorable exhibition for me was a design exhibition I saw last year at a museum in Seoul.", ko:"가장 기억에 남는 전시는 작년 서울의 미술관에서 본 디자인 전시입니다."},
+    {s:"본론", en:"It was about typography and craft, and there was one room where the designer's sketches were hung right next to the final posters, so you could see every mistake he'd made and crossed out.", ko:"타이포그래피와 공예 전시였는데, 디자이너의 스케치가 완성 포스터 옆에 걸린 방이 있어서 실수와 지운 흔적이 다 보였습니다."},
+    {s:"감정", en:"I stood there for maybe fifteen minutes, and it made me realize that the messy part of the process is actually the interesting part.", ko:"그 앞에 십오 분쯤 서 있었고, 과정의 지저분한 부분이 사실 가장 흥미롭다는 걸 깨달았습니다."},
+    {s:"결론", en:"Since then, I've been saving my own drafts instead of deleting them.", ko:"그때부터 제 드래프트를 지우지 않고 모으고 있습니다."}]},
+
+  {id:"st-render", emo:"💻", title:"렌더 중 노트북 다운", sub:"테크 · 네 시간을 잃은 날", cards:[
+    {s:"서론", en:"Technology has changed my work completely.", ko:"기술은 제 작업을 완전히 바꿔 놓았습니다."},
+    {s:"본론", en:"Five years ago, I did everything by hand, but now I build a whole scene in 3D and change the lighting in ten seconds. Last month, my laptop crashed in the middle of a render and I lost four hours of work.", ko:"오 년 전에는 전부 손으로 했지만 지금은 장면을 3D로 만들고 조명을 십 초에 바꿉니다. 지난달엔 렌더 도중 노트북이 꺼져 네 시간치를 잃었어요."},
+    {s:"감정", en:"I sat there for a minute, took a deep breath, and started again — but honestly, I was furious.", ko:"일 분쯤 앉아 있다가 숨을 쉬고 다시 시작했지만, 솔직히 화가 났습니다."},
+    {s:"결론", en:"I've been saving every twenty minutes since then.", ko:"그 뒤로는 이십 분마다 저장합니다."}]}
+];
+</script>
+<script>
+/* ---------------------------------------------------------- Ava 모의고사 문항 (교재 원본 추출) */
+const MOCK = [
+ {
+  "id": "intro",
+  "topic": "자기소개",
+  "topicId": "intro",
+  "no": "1번",
+  "kind": "자기소개 · 채점 제외",
+  "q": "Let's start. Tell me a little about yourself.",
+  "alt": "1번은 워밍업입니다. 목소리와 속도만 잡으세요.",
+  "en": "Hi, my name is Somi Yoon, and I'm a senior at Sookmyung Women's University, majoring in visual design. I mainly do 3D graphics — I work with Cinema 4D, Blender, and Unreal Engine — and I just finished my graduation project, which was a 3D exhibition called Non Finito. These days I'm trying to turn my personal work into a small studio called Egg Somi. When I'm not working, I like going to exhibitions, watching movies, and taking long walks. It's nice to meet you.",
+  "ko": "안녕하세요, 저는 SOM이고 숙명여자대학교 4학년입니다. 시각·영상디자인을 전공하고 있고, 주로 3D 그래픽 작업을 합니다 — 시네마4D, 블렌더, 언리얼 엔진을 씁니다. 얼마 전에 〈Non Finito〉라는 3D 전시로 졸업 프로젝트를 마쳤고요. 요즘은 제 작업을 ‘에그소미’라는 작은 스튜디오로 만들어 보려고 하고 있습니다. 작업하지 않을 때는 전시를 보러 다니거나 영화를 보고, 길게 산책하는 걸 좋아합니다. 만나서 반갑습니다.",
+  "pts": [
+   "여섯 문장으로 이름 → 소속 → 전공 → 하는 일 → 최근 작업 → 취미. 이 순서를 그대로 외우면 1번은 실수할 자리가 없습니다.",
+   "고유명사는 미리 정확히 준비 — Sookmyung Women's University / Non Finito / Egg Somi. 1번은 채점 제외지만, 첫 30초의 목소리가 2번의 리듬을 만듭니다.",
+   "마지막은 “It's nice to meet you.”로 여유 있게. 여기서 속도를 늦추면 다음 문항이 편해집니다."
+  ]
+ },
+ {
+  "id": "c4-1-combo01",
+  "topic": "자기소개 & 3D 작업",
+  "topicId": "c4-1",
+  "no": "01",
+  "kind": "묘사 · Description",
+  "q": "Tell me about the place where you work or study.",
+  "alt": "What does your workspace look like?",
+  "en": "I usually work from a small desk in my room, and honestly, it's more like a tiny studio than a desk. I have a big monitor, a drawing tablet, and a second screen that I only use for reference images. The best part is the window right next to me — I get a lot of sunlight in the afternoon, which really helps when I'm rendering something for hours. It's a bit messy, though. There are always sketchbooks, cables, and empty coffee cups everywhere, but I kind of like it that way. It feels like my own little workshop.",
+  "ko": "저는 보통 방 안의 작은 책상에서 작업하는데, 솔직히 책상이라기보다 작은 스튜디오에 가깝습니다. 큰 모니터와 드로잉 태블릿, 그리고 참고 이미지 전용으로 쓰는 보조 화면이 있어요. 가장 좋은 건 바로 옆에 있는 창문입니다. 오후에 햇빛이 많이 들어오는데, 몇 시간씩 렌더링할 때 정말 도움이 됩니다. 다만 조금 어수선해요. 스케치북과 케이블, 빈 커피잔이 항상 널려 있는데, 저는 그 편이 좋습니다. 제 작은 작업실 같거든요.",
+  "pts": [
+   "공간 묘사는 공간 → 물건 → 빛/분위기 → 단점 → 애정 다섯 단. 단점을 넣는 순간 묘사가 진짜처럼 들립니다.",
+   "관계절 which really helps when… 하나로 문장이 길어지고 자연스러워집니다 (Text Type 점수).",
+   "though로 반전을 넣으면 ‘좋은 점만 나열하는 답변’에서 벗어납니다."
+  ]
+ },
+ {
+  "id": "c4-1-combo02",
+  "topic": "자기소개 & 3D 작업",
+  "topicId": "c4-1",
+  "no": "01",
+  "kind": "루틴 · Habit",
+  "q": "What do you usually do on a typical day?",
+  "alt": "Tell me about your daily routine at work or school.",
+  "en": "On a typical working day, I get to my desk around ten, and the first thing I do is check my references and write down three small goals for the day. Then I usually block out shapes for a couple of hours — that's the part I enjoy the most, because it's pure design. After lunch, I do the technical stuff, like lighting and rendering, which takes forever. When I get stuck, I take a short walk around the park near my place and come back with a fresh eye. I usually wrap up around midnight, and I always save three versions of the file, just in case.",
+  "ko": "작업하는 날은 보통 열 시쯤 책상에 앉고, 가장 먼저 참고 자료를 확인한 뒤 그날의 작은 목표 세 개를 적습니다. 그다음 두어 시간은 형태를 잡는 작업을 해요. 순수한 디자인이라 제가 가장 좋아하는 부분입니다. 점심 후에는 조명과 렌더링 같은 기술적인 작업을 하는데, 이게 정말 오래 걸립니다. 막히면 집 근처 공원을 짧게 산책하고 새 눈으로 돌아옵니다. 보통 자정쯤 마무리하고, 혹시 모르니 항상 파일을 세 개 버전으로 저장합니다.",
+  "pts": [
+   "습관은 현재시제 + 시간 부사(around ten, after lunch, around midnight)로 시간표처럼 만들면 자동으로 길어집니다.",
+   "which takes forever / that's the part I enjoy the most — 구어체 강조 표현이 IH 답변처럼 들리게 합니다.",
+   "마지막 just in case 같은 짧은 꼬리는 여유의 신호입니다."
+  ]
+ },
+ {
+  "id": "c4-1-combo03",
+  "topic": "자기소개 & 3D 작업",
+  "topicId": "c4-1",
+  "no": "01",
+  "kind": "경험 · Experience",
+  "q": "Tell me about a project you worked on that you're proud of.",
+  "alt": "Tell me about a time you worked really hard on something.",
+  "en": "The project I'm most proud of is my graduation exhibition, Non Finito. It was a 3D installation about the feeling of being unfinished, and I was in charge of the whole visual side — modeling, lighting, sound, and even the poster. For about two months, I was at school until two or three in the morning almost every day, and there were moments when I honestly wanted to give up. But on the opening night, when people stood in front of the screen and just stayed there, watching it, I felt something I'd never felt before. That was the first time I thought, okay, this is what I want to do for the rest of my life.",
+  "ko": "가장 자랑스러운 작업은 졸업전시 〈Non Finito〉입니다. ‘끝나지 않은 느낌’을 주제로 한 3D 설치 작업이었고, 저는 비주얼 전반을 맡았습니다 — 모델링, 조명, 사운드, 포스터까지요. 두 달 정도 거의 매일 새벽 두세 시까지 학교에 있었고, 솔직히 포기하고 싶은 순간도 있었습니다. 그런데 오프닝 날 밤, 사람들이 화면 앞에 서서 그냥 그 자리에 머물러 작품을 보고 있는 걸 봤을 때, 처음 느껴보는 감정이 들었어요. 그때 처음으로 ‘아, 이걸 평생 하고 싶다’고 생각했습니다.",
+  "pts": [
+   "경험은 무엇 → 내 역할 → 고생(기간·시간) → 전환점 → 감정 → 의미. 기간과 시각을 숫자로 말하면 신뢰가 생깁니다.",
+   "there were moments when I wanted to give up — 힘든 부분을 인정해야 감정 정점이 삽니다.",
+   "마지막 문장은 반드시 의미로. “This is what I want to do” 같은 문장이 답변의 등급을 올립니다."
+  ]
+ },
+ {
+  "id": "c4-2-combo01",
+  "topic": "집 & 동네",
+  "topicId": "c4-2",
+  "no": "02",
+  "kind": "묘사 · Description",
+  "q": "Describe the neighborhood you live in.",
+  "alt": "Tell me about your home.",
+  "en": "I live in Jungsan-dong, which is in Ilsan, just outside Seoul. It's a quiet residential area with a lot of parks and low apartment buildings, and honestly, it feels a bit slow compared to the city — but I've grown to like that. My apartment is on a low floor, so I can see trees from my window instead of other buildings. There's a big park about five minutes away, and a small stream where people walk their dogs in the evening. It's nothing fancy, but everything I need — the market, the café I go to, the bus stop — is within ten minutes.",
+  "ko": "저는 서울 바로 밖, 일산의 중산동에 삽니다. 공원과 낮은 아파트가 많은 조용한 주거 지역인데, 솔직히 도시에 비하면 좀 느린 느낌입니다. 그런데 이제는 그게 좋아졌어요. 집이 낮은 층이라 창밖으로 다른 건물 대신 나무가 보입니다. 오 분 거리에 큰 공원이 있고, 저녁이면 사람들이 개를 산책시키는 작은 개울도 있어요. 특별한 동네는 아니지만, 필요한 건 전부 — 마트, 단골 카페, 버스 정류장까지 — 십 분 안에 있습니다.",
+  "pts": [
+   "지명을 먼저 말하면 which is in Ilsan처럼 관계절이 자연스럽게 붙습니다. 지명 1개만으로 디테일 점수를 확보합니다.",
+   "instead of other buildings 같은 대조가 묘사를 구체적으로 만듭니다.",
+   "마지막 It's nothing fancy, but…는 이 책 전체에서 세 번 이상 쓸 수 있는 만능 마무리입니다."
+  ]
+ },
+ {
+  "id": "c4-2-combo02",
+  "topic": "집 & 동네",
+  "topicId": "c4-2",
+  "no": "02",
+  "kind": "루틴 · Habit",
+  "q": "What do you usually do around your neighborhood?",
+  "alt": "Tell me about your daily routine in your neighborhood.",
+  "en": "In the morning, I usually walk to the park near my place before I start working, because it clears my head. There's a small café on the way back, and I sometimes stop there for an iced Americano and do a bit of planning on my phone. In the evening, when the weather is nice, I take a longer walk around the park — it's about a thirty-minute loop, and there are always people jogging or stretching. On weekends, I go to the big supermarket about ten minutes away and do all my shopping for the week. It's a pretty simple routine, but it keeps me sane when I'm busy.",
+  "ko": "아침에는 작업을 시작하기 전에 집 근처 공원까지 걷습니다. 머리가 정리되거든요. 돌아오는 길에 작은 카페가 있어서 가끔 들러 아이스 아메리카노를 마시며 휴대폰으로 계획을 세웁니다. 저녁에는 날씨가 좋으면 공원을 더 길게 도는데, 한 바퀴에 삼십 분 정도이고 항상 조깅하거나 스트레칭하는 사람들이 있어요. 주말에는 십 분 거리의 큰 마트에 가서 한 주 장을 다 봅니다. 아주 단순한 루틴이지만, 바쁠 때 저를 정신 차리게 해줍니다.",
+  "pts": [
+   "하루를 아침 → 저녁 → 주말로 나누면 문장이 자동으로 5개 이상이 됩니다.",
+   "because it clears my head / it keeps me sane — 짧은 이유가 붙으면 문장이 살아납니다.",
+   "“it's about a thirty-minute loop”처럼 시간을 숫자로 말하는 습관을 들이세요."
+  ]
+ },
+ {
+  "id": "c4-2-combo03",
+  "topic": "집 & 동네",
+  "topicId": "c4-2",
+  "no": "02",
+  "kind": "변화 · 비교 · Change",
+  "q": "How has your neighborhood changed since you moved there?",
+  "alt": "Tell me about a memory related to your neighborhood.",
+  "en": "I've lived here for about four years, and I've definitely seen some changes. When I first moved in, there was an old-fashioned market street nearby, and I loved walking through it because of the noise and the smell of food. A couple of years ago, a new café and a small gallery opened on that street, so now it's a mix of very old and very new, which I find interesting. Actually, my favorite memory is from last winter — it snowed a lot, and the park was completely empty, so I went out at midnight and made a snowman by myself. It sounds silly, but it's one of those nights I still think about.",
+  "ko": "여기 산 지 약 사 년이 됐고, 확실히 변화를 봤습니다. 처음 이사 왔을 때 근처에 옛날식 시장 골목이 있었는데, 소란스러움과 음식 냄새 때문에 그 길을 걷는 걸 좋아했습니다. 몇 년 전 그 골목에 새 카페와 작은 갤러리가 들어와서, 지금은 아주 오래된 것과 아주 새로운 것이 섞여 있는데 그게 흥미롭습니다. 사실 가장 좋아하는 기억은 지난겨울입니다. 눈이 많이 와서 공원이 완전히 비었고, 그래서 자정에 나가 혼자 눈사람을 만들었어요. 우습게 들리겠지만, 지금도 생각나는 밤 중 하나입니다.",
+  "pts": [
+   "변화 질문은 현재완료(I've lived) → 과거(first moved in) → 현재(now) 순서. 시제가 세 번 바뀌는 것이 오히려 점수입니다.",
+   "마지막에 기억 하나를 붙이면 비교 답변이 서사가 됩니다. 감정으로 끝나는 것이 핵심.",
+   "It sounds silly, but…는 자기 이야기를 낮춰 말하는 자연스러운 표현입니다."
+  ]
+ },
+ {
+  "id": "c4-3-combo01",
+  "topic": "영화 & 전시회",
+  "topicId": "c4-3",
+  "no": "03",
+  "kind": "묘사 · Description",
+  "q": "What kind of movies do you like?",
+  "alt": "Describe the movie theater you usually go to.",
+  "en": "I'm into movies that are visually strong — science fiction, animation, and anything with a really specific art direction. I don't really care about the plot as much as the images, which probably says a lot about me as a designer. I usually go to a small theater in Seoul that shows independent and classic films, because the seats are comfortable and the audience is quiet. The screen isn't huge, but the sound is amazing, and they sell really good coffee, which is rare for a cinema. I try to go at least once a month, usually on a weekday afternoon when it's almost empty.",
+  "ko": "저는 시각적으로 강한 영화를 좋아합니다 — SF, 애니메이션, 그리고 미술 방향이 아주 뚜렷한 작품이요. 스토리보다 이미지가 더 중요해서, 디자이너인 제 성향이 그대로 드러나는 것 같습니다. 보통 서울의 작은 극장에 가는데, 독립영화와 고전영화를 상영하는 곳입니다. 좌석이 편하고 관객이 조용하거든요. 스크린은 크지 않지만 사운드가 훌륭하고, 영화관에서는 드물게 커피도 정말 맛있습니다. 한 달에 한 번은 가려고 하고, 보통 거의 비어 있는 평일 오후를 고릅니다.",
+  "pts": [
+   "취향 묘사에는 장르 2개 + 이유 1개면 충분합니다. 이유가 취향을 증명합니다.",
+   "which probably says a lot about me — 자기 관찰을 넣는 문장은 IH 답변의 표식입니다.",
+   "장소 묘사를 붙일 때는 not huge, but the sound is amazing 같은 대조가 유용합니다."
+  ]
+ },
+ {
+  "id": "c4-3-combo02",
+  "topic": "영화 & 전시회",
+  "topicId": "c4-3",
+  "no": "03",
+  "kind": "루틴 · Habit",
+  "q": "What do you usually do before and after watching a movie?",
+  "alt": "Tell me about your routine when you go to the movies.",
+  "en": "Before the movie, I like to get there early, maybe twenty minutes before it starts. I buy a coffee, sit in the lobby, and read a little about the director, because knowing a bit about the film makes it more interesting for me. I always sit in the middle row, and I turn my phone off completely — that's my rule. After the movie, I usually don't go home right away. I walk around the neighborhood for a while and think about the scenes that stayed with me, and if I'm with a friend, we argue about the ending over dinner. That's honestly my favorite part.",
+  "ko": "영화 전에는 일찍 도착하는 편입니다. 시작 이십 분 전쯤이요. 커피를 사서 로비에 앉아 감독에 대해 조금 읽는데, 작품에 대해 아는 게 있으면 더 흥미로워지기 때문입니다. 좌석은 항상 가운데 줄에 앉고, 휴대폰은 완전히 끕니다 — 제 규칙이에요. 영화가 끝난 뒤에는 바로 집에 가지 않습니다. 동네를 한참 걸으면서 남은 장면들을 생각하고, 친구와 함께라면 저녁을 먹으며 결말로 티격태격합니다. 솔직히 그게 제일 좋은 부분입니다.",
+  "pts": [
+   "before / after로 나누면 루틴 질문이 가장 쉽게 길어집니다.",
+   "that's my rule 같은 짧은 문장이 리듬을 만듭니다. 전부 긴 문장이면 오히려 부자연스럽습니다.",
+   "That's honestly my favorite part로 끝내면 감정 단이 저절로 완성됩니다."
+  ]
+ },
+ {
+  "id": "c4-3-combo03",
+  "topic": "영화 & 전시회",
+  "topicId": "c4-3",
+  "no": "03",
+  "kind": "경험 · Experience",
+  "q": "Tell me about an exhibition or a movie that impressed you.",
+  "alt": "Tell me about a memorable cultural experience.",
+  "en": "The most memorable exhibition for me was a design exhibition I saw last year at a museum in Seoul. It was about typography and craft, and honestly, I went in with low expectations because I thought it would be a bit academic. But there was one room where the designer's sketches were hung right next to the final posters, and you could see every mistake he'd made and crossed out. I stood there for maybe fifteen minutes. It made me realize that the messy part of the process is actually the interesting part, and since then, I've been saving my own drafts instead of deleting them.",
+  "ko": "가장 기억에 남는 전시는 작년에 서울의 한 미술관에서 본 디자인 전시입니다. 타이포그래피와 공예에 관한 전시였는데, 솔직히 좀 학술적일 거라고 생각해서 기대를 낮추고 들어갔습니다. 그런데 디자이너의 스케치가 완성된 포스터 바로 옆에 걸린 방이 있었고, 그가 실수하고 지워버린 흔적이 전부 보였어요. 저는 그 앞에서 십오 분쯤 서 있었습니다. 과정의 지저분한 부분이 사실은 가장 흥미로운 부분이라는 걸 깨달았고, 그때부터 제 드래프트를 지우지 않고 모으고 있습니다.",
+  "pts": [
+   "전시·영화 경험은 기대 → 반전 → 머문 시간 → 깨달음 → 그 후의 변화. ‘그 후’가 붙으면 답변이 훨씬 성숙하게 들립니다.",
+   "since then, I've been saving… — 현재완료진행 하나로 경험이 현재와 연결됩니다.",
+   "구체적 장면(스케치 옆 포스터) 하나만 정확히 묘사하면 나머지는 쉽게 따라옵니다."
+  ]
+ },
+ {
+  "id": "c4-4-combo01",
+  "topic": "음악 & 카페",
+  "topicId": "c4-4",
+  "no": "04",
+  "kind": "묘사 · Description",
+  "q": "Describe your favorite café.",
+  "alt": "What kind of music do you listen to?",
+  "en": "My favorite café is a small place near my apartment with big windows and wooden tables. It's not trendy at all — there are just a few seats and a very calm owner. The music there is always something I don't recognize, which is why I keep going back. I usually order an iced Americano, sit in the corner with my laptop, and stay for three or four hours. I listen to almost everything when I work, but lately it's been a lot of ambient and film soundtracks, because I need something without lyrics. So the café and my playlist kind of work the same way — quiet background that lets me focus.",
+  "ko": "가장 좋아하는 카페는 집 근처의 작은 가게로, 큰 창과 나무 테이블이 있습니다. 전혀 유행하는 곳이 아니에요 — 좌석이 몇 개 없고 주인장이 아주 차분합니다. 그곳 음악은 항상 제가 모르는 곡이라서 계속 가게 됩니다. 보통 아이스 아메리카노를 시켜 구석 자리에 노트북을 펴고 서너 시간 머뭅니다. 작업할 때는 거의 다 듣는 편인데, 요즘은 앰비언트와 영화 음악을 많이 듣습니다. 가사가 없는 게 필요하거든요. 그래서 카페와 제 플레이리스트가 비슷한 역할을 합니다 — 집중하게 해주는 조용한 배경이요.",
+  "pts": [
+   "카페 묘사 + 음악 취향을 한 답변에 붙이는 것이 이 콤보의 핵심. 두 질문을 동시에 방어합니다.",
+   "It's not trendy at all — 유행이 아니라는 부정 표현이 오히려 개성을 만듭니다.",
+   "마지막 kind of work the same way로 두 소재를 하나로 묶으면 답변이 정리됩니다."
+  ]
+ },
+ {
+  "id": "c4-4-combo02",
+  "topic": "음악 & 카페",
+  "topicId": "c4-4",
+  "no": "04",
+  "kind": "루틴 · Habit",
+  "q": "When do you listen to music?",
+  "alt": "What do you usually do at a café?",
+  "en": "I listen to music basically all day, but it changes depending on what I'm doing. When I'm modeling, I need something loud and repetitive, so I put on the same album over and over — my friends think I'm crazy. When I'm writing or thinking, I switch to piano or ambient, because lyrics distract me. At the café, I put my headphones on straight away, so I don't get distracted by other people's conversations. It's funny — I go to a café to be around people, but I end up ignoring all of them.",
+  "ko": "저는 거의 하루 종일 음악을 듣는데, 뭘 하는지에 따라 달라집니다. 모델링할 때는 크고 반복적인 게 필요해서 같은 앨범을 계속 반복합니다 — 친구들은 저보고 이상하다고 해요. 글을 쓰거나 생각할 때는 피아노나 앰비언트로 바꿉니다. 가사가 방해되거든요. 카페에서는 바로 헤드폰을 껴서 다른 사람들의 대화에 방해받지 않습니다. 웃긴 건, 사람들 곁에 있고 싶어서 카페에 가는데 결국 모두를 무시하게 된다는 거예요.",
+  "pts": [
+   "depending on what I'm doing — 상황별로 나누는 표현. 루틴 질문의 만능 도입입니다.",
+   "over and over / straight away 같은 구동사가 자연스러움을 만듭니다 (IH 어휘).",
+   "마지막 It's funny — 관찰 + 유머. 시험관에게 ‘이 사람 이야기한다’는 인상을 줍니다."
+  ]
+ },
+ {
+  "id": "c4-4-combo03",
+  "topic": "음악 & 카페",
+  "topicId": "c4-4",
+  "no": "04",
+  "kind": "경험 · Experience",
+  "q": "Tell me about a memorable experience at a café.",
+  "alt": "Tell me about a time music helped you.",
+  "en": "I remember one rainy afternoon at that café very clearly. I had a deadline the next morning and I was completely stuck on a project, so I went there to escape my room. There was only one other customer, and the owner was playing an old jazz record on a real turntable. At some point, the rain got heavier, and the whole street outside went quiet, and I suddenly knew exactly what to do with my design. I finished the whole thing in two hours. I still can't explain it — sometimes you just need the right room and the right song.",
+  "ko": "그 카페에서의 비 오는 오후 하나가 아주 선명하게 기억납니다. 다음 날 아침 마감이었는데 작업이 완전히 막혀서, 방을 벗어나려고 그곳에 갔습니다. 손님은 한 명뿐이었고, 주인장은 진짜 턴테이블로 옛 재즈 음반을 틀고 있었어요. 어느 순간 비가 더 세지고 바깥 골목이 조용해졌는데, 갑자기 디자인을 어떻게 풀어야 할지 정확히 알겠더군요. 두 시간 만에 전부 끝냈습니다. 아직도 설명이 안 됩니다 — 가끔은 그냥 맞는 방과 맞는 노래가 필요한 것 같아요.",
+  "pts": [
+   "경험은 상황(막힘) → 장소의 디테일(턴테이블) → 전환점 → 결과(두 시간) → 의미. 결과를 숫자로 말하세요.",
+   "At some point는 이야기의 전환점을 표시하는 가장 쉬운 신호입니다.",
+   "마지막 한 문장은 일반화된 생각으로. “sometimes you just need…” 같은 문장이 여운을 만듭니다."
+  ]
+ },
+ {
+  "id": "c4-5-combo01",
+  "topic": "여행 — 푸꾸옥",
+  "topicId": "c4-5",
+  "no": "05",
+  "kind": "묘사 · Description",
+  "q": "Describe a place you traveled to recently.",
+  "alt": "Tell me about your favorite travel destination.",
+  "en": "The last trip I took was to Phu Quoc, a small island in Vietnam, and it was my first real beach trip in years. I stayed at two different resorts — the first one was in a quiet village area with palm trees and a small pool, and the second one was right on the beach, with a long stretch of white sand. What I liked most was how slow everything was. There were no tall buildings and no traffic, just motorbikes, fruit stands, and the smell of the sea. It's not a fancy, luxury place — it's more of a relaxed, local kind of island, and that's exactly why I loved it.",
+  "ko": "마지막 여행은 베트남의 작은 섬, 푸꾸옥이었습니다. 몇 년 만의 진짜 해변 여행이었어요. 두 곳의 다른 리조트에 묵었는데, 첫 번째는 야자수와 작은 수영장이 있는 조용한 마을 쪽이었고, 두 번째는 긴 백사장이 바로 앞인 해변 쪽이었습니다. 가장 좋았던 건 모든 것이 느리다는 점이에요. 높은 건물도, 차도 없고 그냥 오토바이와 과일 가판대, 바다 냄새뿐이었습니다. 고급스러운 휴양지가 아니라 편안하고 현지적인 섬이고, 바로 그래서 좋았습니다.",
+  "pts": [
+   "여행 묘사는 어디 → 언제/누구와 → 무엇이 인상적 → 비교 → 애정. 두 리조트를 비교하면 디테일이 두 배가 됩니다.",
+   "What I liked most was how slow everything was — 강조 구문 하나가 답변의 격을 올립니다.",
+   "마지막 that's exactly why I loved it으로 감정과 이유를 동시에 정리합니다."
+  ]
+ },
+ {
+  "id": "c4-5-combo02",
+  "topic": "여행 — 푸꾸옥",
+  "topicId": "c4-5",
+  "no": "05",
+  "kind": "경험 · 활동",
+  "q": "Tell me about an activity you did on your trip.",
+  "alt": "What did you do during the trip?",
+  "en": "The best day of the trip was the island hopping tour. We left at nine in the morning on a small boat with about fifteen other people, and we stopped at three different islands — one for snorkeling, one for lunch, and one that was almost empty. I'd never snorkeled properly before, so I was a bit nervous, but the water was so clear that I could see everything without even going deep. At one point, a school of small fish swam right past my face, and I actually laughed into my snorkel. We came back at sunset, completely exhausted and sunburned, and I slept for twelve hours straight.",
+  "ko": "여행에서 가장 좋았던 날은 섬 호핑투어였습니다. 아침 아홉 시에 십오 명 정도와 작은 배를 타고 출발해서 세 개의 섬에 들렀습니다 — 하나는 스노클링, 하나는 점심, 하나는 거의 비어 있는 섬이었어요. 제대로 스노클링을 해본 적이 없어서 조금 긴장했는데, 물이 너무 맑아서 깊이 들어가지 않아도 전부 보였습니다. 어느 순간 작은 물고기 떼가 제 얼굴 바로 옆을 지나갔고, 저는 스노클 안에서 웃음이 났어요. 해질녘에 완전히 지치고 햇볕에 탄 채 돌아와서, 열두 시간을 푹 잤습니다.",
+  "pts": [
+   "활동 묘사는 출발 시각 → 인원 → 세 곳의 역할 → 처음 해본 것 → 사건 → 귀환. 숫자를 세 개 이상 넣으세요.",
+   "I'd never p.p. before, so I was a bit nervous — 과거완료 + 감정의 조합은 IH의 전형적인 문장입니다.",
+   "so clear that I could see — so~that 구문 하나를 준비해 두면 어디든 쓸 수 있습니다."
+  ]
+ },
+ {
+  "id": "c4-5-combo03",
+  "topic": "여행 — 푸꾸옥",
+  "topicId": "c4-5",
+  "no": "05",
+  "kind": "문제 · Problem",
+  "q": "Tell me about a problem you had during your trip.",
+  "alt": "Tell me about a difficult situation you experienced while traveling.",
+  "en": "Actually, something pretty unpleasant happened on the second night. I found a large cockroach in my room — and then another one the next morning — so I went down to the front desk and asked them to change my room. At first, they just said they would send someone to clean it, so I had to be firm and explain that I couldn't sleep there. In the end, they moved us to a different building, but they charged me extra for the upgrade, which honestly annoyed me. Looking back, I'm proud that I handled it in English without panicking. Next time, though, I'll check the reviews much more carefully.",
+  "ko": "사실 둘째 날 밤에 꽤 불쾌한 일이 있었습니다. 방에서 큰 바퀴벌레를 발견했고, 다음 날 아침 또 한 마리를 봤습니다. 그래서 프론트로 내려가 방을 바꿔 달라고 했어요. 처음에는 청소하는 사람을 보내겠다고만 해서, 저는 단호하게 여기서 잘 수 없다고 설명해야 했습니다. 결국 다른 건물로 옮겨 주긴 했는데 업그레이드 비용을 추가로 청구했고, 솔직히 그건 짜증났습니다. 돌아보면 당황하지 않고 영어로 해결한 게 뿌듯합니다. 그래도 다음에는 리뷰를 훨씬 꼼꼼히 볼 것 같아요.",
+  "pts": [
+   "문제 답변은 문제 → 요청 → 거절 → 재요청 → 결과 → 감정 → 교훈 일곱 단. 거절이 들어가야 이야기가 됩니다.",
+   "had to be firm 같은 표현이 상황의 긴장을 살립니다.",
+   "마지막 두 문장(Looking back, I'm proud… / Next time…)이 문제 경험을 성숙한 답변으로 바꿉니다."
+  ]
+ },
+ {
+  "id": "c4-6-combo01",
+  "topic": "건강 · 운동 & 산책",
+  "topicId": "c4-6",
+  "no": "06",
+  "kind": "묘사 · Description",
+  "q": "Describe the place where you exercise.",
+  "alt": "Describe the gym you go to.",
+  "en": "I go to a small gym about ten minutes from my apartment. It's not one of those big fancy places — it's in the basement of a building, and the equipment is a bit old, but it's clean and never crowded. There's a cardio area by the window, a small free-weight section, and a stretching corner with mats. The manager is an older man who always says hello and sometimes corrects my form, which I appreciate. I usually go late at night, around ten, because there are only two or three people there, and I can listen to my own music without feeling watched.",
+  "ko": "집에서 십 분 거리의 작은 헬스장에 다닙니다. 크고 화려한 곳이 아니라 건물 지하에 있고 기구도 조금 낡았지만, 깨끗하고 절대 붐비지 않아요. 창가에 유산소 구역, 작은 프리웨이트 구역, 매트가 있는 스트레칭 코너가 있습니다. 관장님은 나이 지긋한 남성인데 항상 인사해 주시고 가끔 자세를 고쳐 주십니다. 저는 그게 좋습니다. 보통 밤 열 시쯤 가는데, 두세 명만 있어서 남의 시선 없이 제 음악을 들을 수 있습니다.",
+  "pts": [
+   "장소 묘사는 위치 → 규모 → 구역 3개 → 사람 → 시간. 구역을 세 개 나열하면 공간이 그려집니다.",
+   "It's not one of those big fancy places — 부정으로 시작하는 묘사는 기억에 남습니다.",
+   "which I appreciate로 사람에 대한 감정을 한 줄 붙입니다."
+  ]
+ },
+ {
+  "id": "c4-6-combo02",
+  "topic": "건강 · 운동 & 산책",
+  "topicId": "c4-6",
+  "no": "06",
+  "kind": "루틴 · Habit",
+  "q": "What do you usually do to stay healthy?",
+  "alt": "Tell me about your exercise routine.",
+  "en": "To be honest, I'm not a very consistent person, so I try to keep my routine simple. I go to the gym three times a week, and I always start with twenty minutes on the bike to warm up. Then I do a bit of weight training — mostly back and core, because I have some issues with my spine. On the days I don't go, I walk around the park near my place for about forty minutes, usually after dinner. I also try to eat only twice a day and drink a lot of water, which is harder than it sounds. I'm not perfect, but I've gotten much better than I was a year ago.",
+  "ko": "솔직히 저는 꾸준한 편이 아니라서 루틴을 단순하게 유지하려고 합니다. 일주일에 세 번 헬스장에 가고, 항상 자전거 이십 분으로 몸을 풉니다. 그다음 웨이트를 조금 하는데, 주로 등과 코어입니다. 척추에 문제가 있거든요. 가지 않는 날에는 저녁 식사 후 집 근처 공원을 사십 분 정도 걷습니다. 하루 두 끼만 먹고 물을 많이 마시려고도 하는데, 말처럼 쉽지 않습니다. 완벽하진 않지만 일 년 전보다는 훨씬 나아졌습니다.",
+  "pts": [
+   "To be honest, I'm not a very consistent person — 약점을 먼저 인정하면 이후 내용이 훨씬 자연스럽습니다.",
+   "루틴은 주기(3회) → 순서(자전거→웨이트) → 대체 활동(산책)으로 구성하면 5문장이 자동으로 나옵니다.",
+   "which is harder than it sounds — 관용적인 덧붙임. 외워 두면 어디든 붙습니다."
+  ]
+ },
+ {
+  "id": "c4-6-combo03",
+  "topic": "건강 · 운동 & 산책",
+  "topicId": "c4-6",
+  "no": "06",
+  "kind": "경험 · 계획",
+  "q": "Tell me about a time you started something new for your health.",
+  "alt": "Tell me about a health plan you have.",
+  "en": "Recently I decided to take my health seriously, because I realized I'd been ignoring it for years. I made a thirty-day plan: two meals a day, no late-night snacks, and at least one walk every evening. The first week was horrible — I was hungry and grumpy all the time, and I almost quit on day four. What helped me was writing down every single day on a calendar, so I could see the streak building. I'm still at the beginning, but I've already lost some weight and, more importantly, I sleep much better. My goal is to keep it going until the end of the year.",
+  "ko": "최근에 건강을 진지하게 챙기기로 했습니다. 몇 년 동안 외면해 왔다는 걸 깨달았거든요. 30일 계획을 세웠습니다 — 하루 두 끼, 야식 금지, 저녁마다 최소 한 번 산책. 첫 주는 끔찍했습니다. 계속 배고프고 짜증이 났고, 나흘째에 거의 포기할 뻔했어요. 도움이 된 건 달력에 하루하루 적는 것이었습니다. 연속 기록이 쌓이는 게 보였거든요. 아직 시작 단계지만 이미 조금 빠졌고, 더 중요하게는 잠을 훨씬 잘 잡니다. 목표는 연말까지 계속하는 것입니다.",
+  "pts": [
+   "because I realized I'd been ignoring it — 과거완료진행 하나로 ‘오래 방치했다’는 시간이 생깁니다.",
+   "What helped me was + 명사 강조 구문은 계획·경험 답변의 마무리로 탁월합니다.",
+   "more importantly 삽입어로 우선순위를 말하면 사고의 깊이가 드러납니다."
+  ]
+ },
+ {
+  "id": "c4-7-combo01",
+  "topic": "스마트폰 · 테크 · SNS",
+  "topicId": "c4-7",
+  "no": "07",
+  "kind": "묘사 · Description",
+  "q": "Describe the phone you use.",
+  "alt": "Tell me about the technology you use every day.",
+  "en": "I use an iPhone, and honestly, it's basically my office. I use it for everything — messages, banking, editing photos, and even checking my 3D files when I'm away from my computer. The thing I use most is probably the camera, because I take photos of textures and signs for design references. My home screen is a mess; I have about six folders and I still can't find anything. I'm not really a gadget person, so I don't change my phone often — I'd rather spend that money on a drawing tablet or a plane ticket.",
+  "ko": "아이폰을 쓰는데, 솔직히 거의 제 사무실입니다. 메시지, 은행, 사진 편집, 심지어 컴퓨터에서 떨어져 있을 때 3D 파일 확인까지 다 이걸로 합니다. 가장 많이 쓰는 건 아마 카메라예요. 디자인 참고 자료로 질감이나 간판 사진을 찍거든요. 홈 화면은 엉망입니다. 폴더가 여섯 개쯤 있는데도 아무것도 못 찾습니다. 기기 덕후는 아니라서 휴대폰을 자주 바꾸지 않습니다 — 그 돈이면 드로잉 태블릿이나 비행기 표를 사고 싶어요.",
+  "pts": [
+   "기기 묘사는 기기 → 용도 3개 → 가장 많이 쓰는 기능 → 단점 → 소비 성향. 단점(홈 화면 엉망)이 인간미를 만듭니다.",
+   "The thing I use most is… 강조 구문 + because로 이유 붙이기.",
+   "I'd rather A than B — 취향을 한 문장으로 보여주는 표현입니다."
+  ]
+ },
+ {
+  "id": "c4-7-combo02",
+  "topic": "스마트폰 · 테크 · SNS",
+  "topicId": "c4-7",
+  "no": "07",
+  "kind": "루틴 · Habit",
+  "q": "How do you use social media?",
+  "alt": "Tell me about the apps you use most.",
+  "en": "I use Instagram the most, but not really for scrolling — I run a few accounts for my design work. One is for my 3D projects, one is a photo account where I post film-like photos, and I also have a Behance page for longer projects. So my routine is a bit unusual: in the evening, I edit a few photos on my phone, write a short caption, and upload them. I try not to spend too long on the feed, because it makes me compare myself to other designers and feel bad. Lately, I've been setting a timer for twenty minutes, and when it rings, I close the app.",
+  "ko": "인스타그램을 가장 많이 쓰지만, 사실 훑어보기 위해서는 아닙니다 — 디자인 작업을 위한 계정 몇 개를 운영합니다. 하나는 3D 프로젝트, 하나는 필름 같은 사진을 올리는 계정이고, 긴 프로젝트는 비핸스에 올립니다. 그래서 제 루틴은 조금 특이합니다. 저녁에 휴대폰으로 사진 몇 장을 편집하고, 짧은 캡션을 쓰고, 업로드합니다. 피드는 오래 보지 않으려고 합니다. 다른 디자이너와 저를 비교하게 되어 기분이 나빠지거든요. 요즘은 이십 분 타이머를 맞추고, 울리면 앱을 닫습니다.",
+  "pts": [
+   "not really for scrolling — I run a few accounts — 예상 반전으로 시작하면 답변이 확실히 기억에 남습니다.",
+   "계정 세 개를 나열하면 디테일이 확보되고, 동시에 ‘디자이너’ 정체성이 전달됩니다.",
+   "because it makes me compare myself — 솔직한 감정은 IH 답변에서 가장 강한 무기입니다."
+  ]
+ },
+ {
+  "id": "c4-7-combo03",
+  "topic": "스마트폰 · 테크 · SNS",
+  "topicId": "c4-7",
+  "no": "07",
+  "kind": "경험 · 변화",
+  "q": "Tell me about a time technology caused a problem for you.",
+  "alt": "How has technology changed your work?",
+  "en": "Technology has changed my work completely. Five years ago, I did everything by hand — drawing, scanning, and cutting things out with a knife. Now I build a whole scene in 3D, and if I don't like the lighting, I change it in ten seconds. That sounds great, and it is, but it also means I can keep fixing things forever, which is why I sometimes miss the old days. Last month, my laptop crashed in the middle of a render and I lost four hours of work. I sat there for a minute, took a deep breath, and started again. I've been saving every twenty minutes since then.",
+  "ko": "기술은 제 작업을 완전히 바꿔 놓았습니다. 오 년 전에는 모든 걸 손으로 했어요 — 그리고, 스캔하고, 칼로 오려내고. 지금은 장면 전체를 3D로 만들고, 조명이 마음에 안 들면 십 초 만에 바꿉니다. 좋은 일이고 사실 그렇지만, 덕분에 끝없이 고칠 수 있게 되어서 예전이 가끔 그립습니다. 지난달에는 렌더링 도중 노트북이 꺼져서 네 시간치 작업을 잃었습니다. 일 분쯤 앉아 있다가 깊게 숨을 쉬고 다시 시작했어요. 그 뒤로는 이십 분마다 저장합니다.",
+  "pts": [
+   "변화 질문은 과거 → 현재 → 장점 → 부작용 → 에피소드 → 교훈. 장점만 말하면 얕아 보입니다.",
+   "which is why I sometimes miss the old days — 양가감정을 표현하면 AL에 가까워집니다.",
+   "에피소드는 짧게, 하지만 구체적 사건(렌더 중 다운, 네 시간)으로."
+  ]
+ },
+ {
+  "id": "dolbal-01",
+  "topic": "돌발 · Weather",
+  "topicId": "dolbal",
+  "no": "8~10번",
+  "kind": "돌발 · 날씨 · Weather",
+  "q": "What is the weather like in Korea? / Tell me about the weather in your city.",
+  "alt": "핵심 표현: It's boiling / It's freezing / the temperature drops / out of nowhere",
+  "en": "Korea has four very clear seasons, which I actually like. Summers are hot and humid, and winters are freezing and dry, so the temperature can change by forty degrees in a year. My favorite is early autumn, when the air gets cool and the sky is really high and clear. I always check the forecast in the morning before I go out, because I don't want to carry an umbrella all day. Honestly, the weather affects my mood more than I'd like to admit.",
+  "ko": "한국은 사계절이 아주 뚜렷한데, 저는 그게 좋습니다. 여름은 덥고 습하고 겨울은 몹시 춥고 건조해서, 일 년 사이 기온이 사십 도까지 변합니다. 가장 좋아하는 건 초가을입니다. 공기가 서늘해지고 하늘이 아주 높고 맑아지거든요. 아침마다 일기예보를 확인하고 나가는데, 하루 종일 우산을 들고 다니기 싫어서입니다. 솔직히 날씨는 제 기분에 생각보다 큰 영향을 줍니다.",
+  "pts": [
+   "제도 설명 → 내 경험 → 감정, 3단이면 30초가 나옵니다.",
+   "시작은 'Well, in Korea, we usually…' — 모르는 주제도 이 문장으로 넘어갑니다.",
+   "마지막은 'Honestly, at first it was a bit annoying, but now…'로 감정 정리."
+  ]
+ },
+ {
+  "id": "dolbal-02",
+  "topic": "돌발 · Banking",
+  "topicId": "dolbal",
+  "no": "8~10번",
+  "kind": "돌발 · 은행 · 결제 · Banking",
+  "q": "Tell me about your banking habits. / How do you usually pay for things?",
+  "alt": "핵심 표현: tap my phone / the line gets long / in person",
+  "en": "I do almost everything on my phone now. I have a banking app for transfers and a card that I use for daily payments — I barely carry cash anymore. Actually, on my last trip, I had to use cash a lot, and I realized how convenient it is to just tap my phone. When I need to go to a bank in person, there's a small branch near my apartment, and I usually go early in the morning, because the line gets long after ten. The only thing I still do at a counter is anything with a document or a signature.",
+  "ko": "요즘은 거의 모든 걸 휴대폰으로 합니다. 송금용 은행 앱이 있고, 일상 결제는 카드로 해서 현금은 거의 안 들고 다닙니다. 사실 지난 여행에서 현금을 많이 써야 했는데, 휴대폰으로 그냥 태그하는 게 얼마나 편한지 새삼 느꼈어요. 직접 은행에 가야 할 때는 집 근처 작은 지점에 가는데, 보통 아침 일찍 갑니다. 열 시가 넘으면 줄이 길어지거든요. 아직도 창구에서 하는 건 서류나 서명이 필요한 일뿐입니다.",
+  "pts": [
+   "제도 설명 → 내 경험 → 감정, 3단이면 30초가 나옵니다.",
+   "시작은 'Well, in Korea, we usually…' — 모르는 주제도 이 문장으로 넘어갑니다.",
+   "마지막은 'Honestly, at first it was a bit annoying, but now…'로 감정 정리."
+  ]
+ },
+ {
+  "id": "dolbal-03",
+  "topic": "돌발 · Holidays",
+  "topicId": "dolbal",
+  "no": "8~10번",
+  "kind": "돌발 · 명절 · 휴일 · Holidays",
+  "q": "Tell me about a holiday you enjoy. / How do you usually spend holidays?",
+  "alt": "핵심 표현: get together / too full to move / the whole country slows down",
+  "en": "My favorite holiday is Chuseok, the Korean harvest holiday. It's usually in September or October, and families get together, eat a lot of food, and visit their hometowns. In my family, we usually have a big meal in the evening, and the next morning everyone is too full to move. What I like most is that the whole country slows down for a few days — the roads are empty in the early morning and the city is quiet. I usually spend the extra day doing nothing at all, which is rare for me.",
+  "ko": "가장 좋아하는 명절은 추석입니다. 보통 구월이나 시월이고, 가족이 모여 음식을 많이 먹고 고향을 다녀옵니다. 저희 집은 보통 저녁에 크게 한 끼를 먹고, 다음 날 아침엔 모두 배불러서 움직이지 못합니다. 가장 좋은 건 온 나라가 며칠 동안 느려진다는 점이에요. 이른 아침 도로는 비어 있고 도시가 조용해집니다. 남는 하루는 아무것도 안 하며 보내는데, 저한테는 아주 드문 일입니다.",
+  "pts": [
+   "제도 설명 → 내 경험 → 감정, 3단이면 30초가 나옵니다.",
+   "시작은 'Well, in Korea, we usually…' — 모르는 주제도 이 문장으로 넘어갑니다.",
+   "마지막은 'Honestly, at first it was a bit annoying, but now…'로 감정 정리."
+  ]
+ },
+ {
+  "id": "dolbal-04",
+  "topic": "돌발 · Transportation",
+  "topicId": "dolbal",
+  "no": "8~10번",
+  "kind": "돌발 · 교통 · Transportation",
+  "q": "How do you usually get around? / Tell me about public transportation in your area.",
+  "alt": "핵심 표현: packed during rush hour / it takes about an hour / get around",
+  "en": "I usually take the bus or the subway. I live just outside Seoul, so if I go into the city, it takes about an hour — a bus to the station and then the subway. The subway is fast and clean, but it's packed during rush hour, so I try to avoid eight in the morning. Late at night, I take a taxi, because the buses stop running. One thing I like about transportation in Korea is that everything is connected to one card, so I never have to think about tickets.",
+  "ko": "보통 버스나 지하철을 탑니다. 서울 바로 밖에 살아서 시내에 들어가려면 한 시간 정도 걸립니다 — 역까지 버스, 그다음 지하철이요. 지하철은 빠르고 깨끗하지만 출퇴근 시간에는 꽉 차서, 아침 여덟 시는 피하려고 합니다. 밤늦게는 버스가 끊겨서 택시를 탑니다. 한국 교통에서 좋은 점은 모든 게 카드 하나로 연결되어 있어서 표를 생각할 필요가 없다는 거예요.",
+  "pts": [
+   "제도 설명 → 내 경험 → 감정, 3단이면 30초가 나옵니다.",
+   "시작은 'Well, in Korea, we usually…' — 모르는 주제도 이 문장으로 넘어갑니다.",
+   "마지막은 'Honestly, at first it was a bit annoying, but now…'로 감정 정리."
+  ]
+ },
+ {
+  "id": "dolbal-05",
+  "topic": "돌발 · Recycling",
+  "topicId": "dolbal",
+  "no": "8~10번",
+  "kind": "돌발 · 재활용 · Recycling",
+  "q": "Tell me about recycling where you live. / How do you separate your trash?",
+  "alt": "핵심 표현: separate our trash / the tricky part / food waste",
+  "en": "In Korea, we separate our trash very carefully. In my apartment, there's a recycling area on the first floor, and we have different bins for paper, plastic, glass, and food waste. Food waste is the tricky part — we have to put it in a special bag, and it's collected almost every day. At first, I found it annoying, but now it takes me about five minutes and I don't really think about it. Actually, I've gotten better at buying less packaging, because I know I'll have to deal with it later.",
+  "ko": "한국에서는 쓰레기를 아주 꼼꼼히 분리합니다. 저희 아파트는 일 층에 재활용 구역이 있고, 종이·플라스틱·유리·음식물 쓰레기 통이 따로 있습니다. 까다로운 건 음식물 쓰레기예요. 전용 봉투에 넣어야 하고 거의 매일 수거됩니다. 처음엔 귀찮았는데 지금은 오 분이면 끝나고 별로 신경 쓰지 않습니다. 오히려 포장이 적은 걸 사게 됐어요. 나중에 처리해야 할 걸 알기 때문입니다.",
+  "pts": [
+   "제도 설명 → 내 경험 → 감정, 3단이면 30초가 나옵니다.",
+   "시작은 'Well, in Korea, we usually…' — 모르는 주제도 이 문장으로 넘어갑니다.",
+   "마지막은 'Honestly, at first it was a bit annoying, but now…'로 감정 정리."
+  ]
+ },
+ {
+  "id": "dolbal-06",
+  "topic": "돌발 · Health",
+  "topicId": "dolbal",
+  "no": "8~10번",
+  "kind": "돌발 · 건강 · 병원 · Health",
+  "q": "Tell me about a time you were sick. / What do you do when you get sick?",
+  "alt": "핵심 표현: make an appointment / write a prescription / it lasted almost two weeks",
+  "en": "I don't go to the hospital often, but last winter I had a bad cough that lasted almost two weeks, so I finally went to a small clinic near my apartment. I made an appointment on the phone, and the whole visit took about thirty minutes. The doctor listened to my breathing and told me it was bronchitis, then gave me a prescription. The pharmacy was right downstairs, so I got the medicine in five minutes. I was a bit nervous about the cost, but it was much cheaper than I expected.",
+  "ko": "병원에 자주 가는 편은 아닌데, 지난겨울에 거의 이 주 동안 기침이 심해서 결국 집 근처 작은 의원에 갔습니다. 전화로 예약했고, 진료는 전체 삼십 분 정도 걸렸어요. 의사 선생님이 호흡을 들어보시고 기관지염이라고 하시며 처방전을 주셨습니다. 약국이 바로 아래층이라 오 분 만에 약을 받았고요. 비용이 걱정됐는데 생각보다 훨씬 저렴했습니다.",
+  "pts": [
+   "제도 설명 → 내 경험 → 감정, 3단이면 30초가 나옵니다.",
+   "시작은 'Well, in Korea, we usually…' — 모르는 주제도 이 문장으로 넘어갑니다.",
+   "마지막은 'Honestly, at first it was a bit annoying, but now…'로 감정 정리."
+  ]
+ },
+ {
+  "id": "adv-14",
+  "topic": "어드밴스",
+  "topicId": "adv",
+  "no": "14번",
+  "kind": "어드밴스 · 비교",
+  "q": "Compare how people planned trips in the past and how they do it now.",
+  "alt": "지금 → 예전 → 이유 → 내 생각, 4단. 예전을 먼저 말하면 used to가 안 나옵니다.",
+  "en": "These days, most people plan a trip entirely on their phones. They book the flight, find the hotel, and read reviews, all in about twenty minutes. But maybe ten years ago, people used to go to a travel agency, talk to a person, and get a printed itinerary. I think it's mainly because information became free and fast. Honestly, I think both have good sides. Booking alone is cheaper and more flexible, but I do miss asking someone who actually knew the place. Last time I traveled, I booked everything myself, and it worked out well — but I still called the hotel three times to check things.",
+  "ko": "요즘은 대부분 여행을 휴대폰으로만 계획합니다. 항공권을 예약하고 호텔을 찾고 후기를 읽는 데 이십 분이면 충분하죠. 그런데 십 년 전에는 여행사에 가서 사람과 이야기하고 인쇄된 일정표를 받았습니다. 주된 이유는 정보가 무료이고 빨라졌기 때문이라고 생각합니다. 솔직히 둘 다 장점이 있어요. 직접 예약하는 게 더 싸고 유연하지만, 그 지역을 실제로 아는 사람에게 묻던 방식이 그립습니다. 지난 여행은 전부 제가 예약했고 잘 됐지만, 그래도 호텔에 세 번 전화해 확인했습니다.",
+  "pts": [
+   "'These days, most people just…'로 지금부터 시작합니다.",
+   "예전은 'But maybe ten years ago, people used to…' — used to가 시제를 정리합니다.",
+   "평가는 'I miss the old way, but I understand why it changed.'로 양쪽을 인정합니다."
+  ]
+ },
+ {
+  "id": "adv-15a",
+  "topic": "어드밴스",
+  "topicId": "adv",
+  "no": "15번",
+  "kind": "어드밴스 · 의견",
+  "q": "Some people share every trip on social media. What do you think about that?",
+  "alt": "양가 → 이유 2 → 내 경험 → 조건부 결론.",
+  "en": "To be honest, I have mixed feelings about sharing trips on social media. On one hand, it's a nice way to keep memories and to show people places they might never visit. I run a photo account myself, and I enjoy editing and posting my pictures. On the other hand, I think it can change the trip itself — sometimes people spend more time looking for the perfect shot than actually looking at the place. For example, on my last trip, I took about two hundred photos in one day, and later I realized I barely remembered the sunset. So now I try to put my phone away for the first ten minutes and just watch. I think sharing is fine, as long as the experience comes first.",
+  "ko": "솔직히 SNS에 여행을 공유하는 것에 대해 양가적인 생각이 있습니다. 한편으로는 추억을 남기고, 누군가는 결코 가보지 못할 곳을 보여주는 좋은 방법입니다. 저도 사진 계정을 운영하고 사진을 편집해 올리는 걸 좋아합니다. 다른 한편으로는 여행 자체를 바꿔 놓을 수 있다고 생각합니다. 완벽한 사진을 찾느라 정작 그 장소를 보지 않는 경우가 있거든요. 예를 들어 지난여행에서 하루에 사진을 이백 장쯤 찍었는데, 나중에 보니 노을은 거의 기억나지 않았습니다. 그래서 지금은 처음 십 분은 휴대폰을 넣어두고 그냥 바라보려고 합니다. 경험이 먼저라면 공유하는 건 괜찮다고 생각합니다.",
+  "pts": [
+   "'To be honest, I have mixed feelings about this.'로 입장을 열어 둡니다.",
+   "On one hand / On the other hand로 이유 두 개를 나눕니다.",
+   "내 경험(사진 200장, 기억나지 않는 노을) 하나를 붙이면 설득력이 생깁니다."
+  ]
+ },
+ {
+  "id": "adv-15b",
+  "topic": "어드밴스",
+  "topicId": "adv",
+  "no": "15번",
+  "kind": "어드밴스 · 의견",
+  "q": "What do you think about AI being used in design work?",
+  "alt": "도구에 비유하는 한 문장(카메라·계산기·번역기)을 준비하세요.",
+  "en": "To be honest, I have mixed feelings about AI in design. On one hand, it's incredibly useful for the boring parts — I use it to find quick references and to clean up images, and it saves me hours. On the other hand, I worry that people will start to think the final image is the whole job, when most of the work is deciding what to make and why. For example, in my graduation project, the software did nothing until I decided what the piece should feel like. So I think AI is a tool, like a camera — it doesn't decide anything by itself. I'm fine with it, as long as designers stay responsible for the idea.",
+  "ko": "솔직히 디자인에서 AI에 대해 양가적인 생각이 있습니다. 한편으로는 지루한 부분에 놀랍도록 유용합니다. 빠르게 참고 자료를 만들고 이미지를 정리하는 데 써서 몇 시간을 아끼거든요. 다른 한편으로는 사람들이 최종 이미지가 일의 전부라고 생각하게 될까 걱정됩니다. 실제로는 무엇을 왜 만들지 정하는 게 일의 대부분인데 말이죠. 예를 들어 졸업 프로젝트에서도 제가 작품이 어떤 느낌이어야 할지 정하기 전까지 소프트웨어는 아무것도 하지 않았습니다. 그래서 AI는 카메라 같은 도구라고 생각합니다. 스스로 아무것도 결정하지 않아요. 디자이너가 아이디어에 책임을 지는 한 괜찮다고 봅니다.",
+  "pts": [
+   "'AI is a tool, like a camera — it doesn't decide anything by itself.'",
+   "찬성 근거는 지루한 일(참고 자료, 이미지 정리)에서의 시간 절약.",
+   "우려는 'people will think the final image is the whole job' — 일의 핵심은 결정이라고 짚습니다."
+  ]
+ },
+ {
+  "id": "rp-11",
+  "topic": "롤플레이",
+  "topicId": "rp",
+  "no": "11번",
+  "kind": "롤플레이 · 정보 묻기",
+  "q": "You are planning a weekend trip. Call the resort and ask four questions about the shuttle, breakfast, late check-out and the room type.",
+  "alt": "11번은 질문이 과제입니다. 4개까지만, 마지막은 'That's all I needed.'",
+  "en": "Hi, good afternoon. I'm calling because I have a reservation for this weekend, and I was wondering if you could help me with a few things. First, how much is the airport shuttle, and what time does it leave? Second, what time does breakfast start, and is it included in the room price? And is it possible to check out a little late on Sunday, maybe around two? Oh, and one more thing — do you have a room with two separate beds? That's all I needed. Thank you so much.",
+  "ko": "안녕하세요, 좋은 오후입니다. 이번 주말 예약이 있는데 몇 가지 도움을 받을 수 있을까 해서 전화드렸습니다. 먼저 공항 셔틀은 얼마이고 몇 시에 출발하나요? 두 번째로 조식은 몇 시에 시작하고 객실 요금에 포함되어 있나요? 그리고 일요일에 두 시쯤 늦게 체크아웃하는 것이 가능할까요? 아, 하나 더 — 침대가 두 개로 분리된 방이 있나요? 궁금한 건 그게 전부입니다. 정말 감사합니다.",
+  "pts": [
+   "도입은 'I was wondering if you could help me with something.' — 정중함이 점수입니다.",
+   "질문 4개: How much is…? / What time does…? / Do you have…? / Is it possible to…?",
+   "질문이 3개로 끝나도 'That's all I needed. Thank you.'로 닫으면 정리됩니다."
+  ]
+ },
+ {
+  "id": "rp-12a",
+  "topic": "롤플레이",
+  "topicId": "rp",
+  "no": "12번",
+  "kind": "롤플레이 · 문제 해결",
+  "q": "You found a cockroach in your hotel room last night and another one this morning. Go to the front desk, explain the problem, and ask for a solution.",
+  "alt": "상황 → 요청 → 대안, 3단. 사과는 한 번이면 충분합니다.",
+  "en": "Hello, I'm sorry to bother you, but I have a problem with my room. I found a large cockroach in the bathroom last night, and this morning I saw another one near the bed. I couldn't sleep at all. I understand these things happen, but I really can't stay in this room. Could you move me to a different room, preferably in another building? If there's an extra charge, I'd like to know about it first. If you can't change my room tonight, could you at least send someone to check the room right now?",
+  "ko": "안녕하세요, 번거롭게 해서 죄송한데 객실에 문제가 있습니다. 어젯밤 화장실에서 큰 바퀴벌레를 발견했고, 오늘 아침에는 침대 옆에서 또 한 마리를 봤습니다. 잠을 전혀 못 잤어요. 이런 일이 있을 수 있다는 건 이해하지만, 이 방에서는 정말 지낼 수 없습니다. 다른 건물의 다른 방으로 옮겨 주실 수 있을까요? 추가 요금이 있다면 먼저 알고 싶습니다. 오늘 밤 방을 바꿀 수 없다면, 최소한 지금 누군가를 보내 방을 확인해 주시겠어요?",
+  "pts": [
+   "핵심 문장: 'I understand these things happen, but I really can't stay in this room.'",
+   "요청은 'Could you move me to a different room, preferably in another building?'",
+   "대안까지: 'If you can't change my room tonight, could you at least send someone to check it?'"
+  ]
+ },
+ {
+  "id": "rp-12b",
+  "topic": "롤플레이",
+  "topicId": "rp",
+  "no": "12번",
+  "kind": "롤플레이 · 예약 변경",
+  "q": "Your flight schedule changed, so you need to cancel a two-night reservation. Call the hotel and ask about the cancellation fee or moving the dates.",
+  "alt": "규정을 읽었다고 말하면 대안 요구가 자연스러워집니다.",
+  "en": "Hi, I made a reservation for two nights starting Friday, and unfortunately I need to cancel it. My flight was moved, so I can't arrive on time. I checked the cancellation policy, and it said free cancellation until three days before, so I think I should be able to cancel without a fee. Could you check that for me? If a refund isn't possible, would it be possible to change the dates to next month instead? I'd rather move the booking than lose the money.",
+  "ko": "안녕하세요, 금요일부터 이 박으로 예약했는데 아쉽게도 취소해야 합니다. 항공편이 변경되어 제때 도착할 수 없게 됐어요. 취소 규정을 확인했더니 사흘 전까지는 무료 취소라고 되어 있어서, 위약금 없이 취소할 수 있을 것 같습니다. 확인해 주실 수 있나요? 환불이 어렵다면 날짜를 다음 달로 변경하는 게 가능할까요? 돈을 잃는 것보다 예약을 옮기는 편이 낫습니다.",
+  "pts": [
+   "상황 + 요청: 'I need to cancel my reservation because my flight was moved.'",
+   "규정 근거: 'It said free cancellation until three days before, so I think I should be able to cancel without a fee.'",
+   "대안: 'If a refund isn't possible, would it be possible to change the dates instead?'"
+  ]
+ },
+ {
+  "id": "rp-13",
+  "topic": "롤플레이",
+  "topicId": "rp",
+  "no": "13번",
+  "kind": "롤플레이 · 내 경험",
+  "q": "Have you ever had a similar problem while traveling? Tell me about it.",
+  "alt": "'Yes, actually — that's exactly what happened to me on my last trip.'로 시작하면 12번과 완벽히 이어집니다.",
+  "en": "Yes, actually — that's exactly what happened to me on my last trip. I found a large cockroach in my room on the second night, and another one the next morning, so I went down to the front desk. At first they just offered to clean the room, so I had to be firm and say I couldn't sleep there. In the end they moved us to a different building, but they charged extra, which honestly annoyed me. Looking back, I'm proud that I handled it in English without panicking, and now I always read the reviews much more carefully.",
+  "ko": "네, 사실 — 지난여행에서 정확히 그런 일이 있었습니다. 둘째 날 밤 방에서 큰 바퀴벌레를 발견했고 다음 날 아침 또 한 마리를 봐서 프론트로 내려갔습니다. 처음에는 청소만 해주겠다고 해서, 여기서 잘 수 없다고 단호하게 말해야 했어요. 결국 다른 건물로 옮겨 주긴 했는데 추가 요금을 받아서 솔직히 짜증났습니다. 돌아보면 당황하지 않고 영어로 해결한 게 뿌듯하고, 지금은 리뷰를 훨씬 꼼꼼히 봅니다.",
+  "pts": [
+   "12번에서 연기한 사건을 '과거 경험'으로 다시 정리하는 것이 자연스럽습니다.",
+   "문제 → 요청 → 거절 → 재요청 → 결과 → 감정 → 교훈, 일곱 단.",
+   "마지막 두 문장(Looking back… / Next time…)이 답변을 성숙하게 만듭니다."
+  ]
+ }
+];
+</script>
+<script>
+/* =====================================================================
+   게임 로직
+   ===================================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.prototype.slice.call(r.querySelectorAll(s));
+
+const SAVE_KEY = 'opic_master_v1';
+const GRADES = [
+  {g:'IL',  min:0},
+  {g:'IM1', min:120},
+  {g:'IM2', min:320},
+  {g:'IM3', min:600},
+  {g:'IH',  min:950},
+  {g:'AL',  min:1400}
+];
+
+const DEFAULTS = {xp:0, grade:'IL', bestCombo:0, quizBest:0, quizPlays:0, stages:{}, mockDone:0, mockBest:0, muted:false};
+let S = Object.assign({}, DEFAULTS);
+try { S = Object.assign(S, JSON.parse(localStorage.getItem(SAVE_KEY) || '{}')); } catch (e) {}
+S.stages = S.stages || {};
+function save(){ try { localStorage.setItem(SAVE_KEY, JSON.stringify(S)); } catch (e) {} }
+
+function gradeIndex(xp){
+  let gi = 0;
+  for (let i = 0; i < GRADES.length; i++) if (xp >= GRADES[i].min) gi = i;
+  return gi;
+}
+
+/* ---------------------------------------------------------- 사운드 */
+let AC = null;
+function audio(){
+  if (AC) return AC;
+  const C = window.AudioContext || window.webkitAudioContext;
+  if (!C) return null;
+  try { AC = new C(); } catch (e) { AC = null; }
+  return AC;
+}
+function tone(freq, at, dur, vol, type){
+  const c = audio(); if (!c) return;
+  const t = c.currentTime + at;
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = type || 'sine';
+  o.frequency.setValueAtTime(freq, t);
+  o.connect(g); g.connect(c.destination);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.linearRampToValueAtTime(vol, t + 0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.start(t); o.stop(t + dur + 0.03);
+}
+const SFX = {
+  ok(){ tone(880,0,.11,.09); tone(1318,.06,.16,.07); },
+  bad(){ tone(190,0,.16,.09,'sawtooth'); tone(142,.08,.2,.07,'sawtooth'); },
+  tap(){ tone(620,0,.05,.045,'sine'); },
+  win(){ [784,988,1174].forEach((f,i)=>tone(f,i*.08,.26,.07,'triangle')); },
+  level(){ [523,659,784,1046,1318].forEach((f,i)=>tone(f,i*.09,.34,.075,'triangle')); }
+};
+function sfx(name){
+  if (S.muted) return;
+  try { const c = audio(); if (!c) return; if (c.state === 'suspended' && c.resume) c.resume(); SFX[name](); } catch (e) {}
+}
+
+/* ---------------------------------------------------------- UI 잡동사니 */
+let toastT = null;
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>t.classList.remove('on'), 2300);
+}
+function openSheet(html){
+  $('#sheetin').innerHTML = '<div class="grab"></div>' + html;
+  $('#sheet').classList.remove('hidden');
+}
+function closeSheet(){ $('#sheet').classList.add('hidden'); }
+$('#sheet').addEventListener('click', e => { if (e.target.id === 'sheet') closeSheet(); });
+
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+const ordinal = ['①','②','③','④'];
+
+/* ---------------------------------------------------------- 헤더 · XP */
+function paintHeader(){
+  const gi = gradeIndex(S.xp);
+  const cur = GRADES[gi], next = GRADES[gi + 1];
+  $('#gradeChip').textContent = cur.g;
+  if (next){
+    const pct = Math.max(0, Math.min(100, ((S.xp - cur.min) / (next.min - cur.min)) * 100));
+    $('#xpFill').style.width = pct.toFixed(1) + '%';
+    $('#nextTxt').textContent = next.g + '까지 ' + (next.min - S.xp) + ' XP';
+  } else {
+    $('#xpFill').style.width = '100%';
+    $('#nextTxt').textContent = '최고 등급 · AL';
+  }
+  $('#xpTxt').innerHTML = '<b>' + S.xp + '</b> XP';
+  $('#muteBtn').textContent = S.muted ? '🔇' : '🔊';
+  $('#muteBtn').classList.toggle('off', !!S.muted);
+  if (!quiz.on){
+    const el = $('#comboChip');
+    if (el){
+      el.textContent = '🔥 ' + S.bestCombo;
+      el.classList.remove('fire');
+    }
+  }
+}
+function setCombo(n){
+  const el = $('#comboChip');
+  if (!el) return;
+  el.textContent = '🔥 ' + n;
+  el.classList.toggle('fire', n >= 2);
+}
+function showLevelUp(g){
+  $('#lvcard').innerHTML =
+    '<div class="k">LEVEL UP</div>' +
+    '<div class="g">' + g + '</div>' +
+    '<p class="d">새 등급에 올랐어요. 이제 시험장에서 3초가 비어도<br>문장이 먼저 나옵니다.</p>' +
+    '<button class="btn" id="lvClose">계속하기</button>';
+  $('#levelup').classList.remove('hidden');
+  // 축하 카드가 떠 있는 동안에는 퀴즈 타이머를 멈춘다 (시간을 빼앗기지 않도록)
+  if (quiz.timer){ clearInterval(quiz.timer); quiz.timer = null; quiz.paused = true; }
+  sfx('level');
+  $('#lvClose').onclick = closeLevelUp;
+}
+function closeLevelUp(){
+  $('#levelup').classList.add('hidden');
+  if (quiz.paused){ quiz.paused = false; resumeQuizTimer(); }
+}
+function gainXP(n){
+  const before = gradeIndex(S.xp);
+  S.xp += n;
+  const after = gradeIndex(S.xp);
+  S.grade = GRADES[after].g;
+  save();
+  paintHeader();
+  if (after > before) setTimeout(() => showLevelUp(GRADES[after].g), 420);
+}
+
+$('#muteBtn').addEventListener('click', () => {
+  S.muted = !S.muted; save(); paintHeader();
+  if (!S.muted) sfx('tap');
+  toast(S.muted ? '소리를 껐어요' : '소리를 켰어요');
+});
+$('#levelup').addEventListener('click', e => { if (e.target.id === 'levelup') $('#levelup').classList.add('hidden'); });
+
+/* =====================================================================
+   MODE 01 · 스피드 퀴즈
+   ===================================================================== */
+const quiz = {on:false, list:[], i:0, combo:0, best:0, right:0, xp:0, timer:null, locked:false, left:10000, paused:false, wrong:[]};
+
+const REVIEW_HINT = {
+  '필러': '3-2 시간 벌기 표현 20',
+  '시제': '3-3 시제 전환 연결어',
+  '감정': '3-4 감정 디테일 사다리',
+  '구동사': '4장 스크립트의 구동사',
+  '롤플레이': '5-2 롤플레이 11~13번',
+  '돌발': '5-1 돌발 주제 6',
+  '어드밴스': '5-4 어드밴스 14~15번'
+};
+
+function stopQuizTimer(){ if (quiz.timer){ clearInterval(quiz.timer); quiz.timer = null; } quiz.paused = false; }
+
+function buildRound(){
+  return shuffle(QUIZ).slice(0, 10).map(q => {
+    const opts = q.c.map((text, i) => ({ text:text, ok: i === q.a }));
+    return { tag:q.tag, q:q.q, ex:q.ex, opts:shuffle(opts) };
+  });
+}
+
+function renderQuizIntro(){
+  stopQuizTimer(); quiz.on = false;
+  $('#main').innerHTML =
+    '<div class="screen">' +
+      '<div class="hero">' +
+        '<div class="yolkdot"></div>' +
+        '<div class="kicker">MODE 01 · 10 QUESTIONS</div>' +
+        '<h1>스피드 퀴즈로<br>뼈대 굳히기</h1>' +
+        '<p>필러·시제·감정, 그리고 4~5장의 구동사와 롤플레이 대처 문장. 한 문항 10초, 콤보가 붙으면 XP도 붙습니다.</p>' +
+      '</div>' +
+      '<div class="stat">' +
+        '<div><b>' + S.quizBest + '</b><small>최고 정답</small></div>' +
+        '<div><b>' + S.bestCombo + '</b><small>최고 콤보</small></div>' +
+        '<div><b>' + gradeIndex(S.xp) + '/5</b><small>등급 단계</small></div>' +
+      '</div>' +
+      '<button class="btn accent mt12" id="startQuiz">시작하기 · 10문항</button>' +
+      '<div class="sectitle"><h2>출제 범위</h2><span>36문항 중 10</span></div>' +
+      '<div class="card">' +
+        '<div class="pt"><b>1</b><span>필러 20개 — 상황에 맞는 시간 벌기 문장 고르기</span></div>' +
+        '<div class="pt"><b>2</b><span>시제 전환 — 과거·현재완료를 구분하는 문장</span></div>' +
+        '<div class="pt"><b>3</b><span>구동사 — wrap up, block out, just in case</span></div>' +
+        '<div class="pt mb0"><b>4</b><span>롤플레이 11~13번, 돌발·어드밴스 대처</span></div>' +
+      '</div>' +
+    '</div>';
+  $('#startQuiz').onclick = () => startQuiz();
+  paintHeader();
+}
+
+function startQuiz(){
+  quiz.on = true; quiz.list = buildRound(); quiz.i = 0; quiz.combo = 0; quiz.best = 0; quiz.right = 0; quiz.xp = 0; quiz.wrong = [];
+  setCombo(0);
+  renderQuizQ();
+}
+
+function renderQuizQ(){
+  stopQuizTimer();
+  const q = quiz.list[quiz.i];
+  quiz.locked = false;
+  $('#main').scrollTop = 0;
+  $('#main').innerHTML =
+    '<div class="screen">' +
+      '<div class="qtop">' +
+        '<span class="pill">Q ' + (quiz.i + 1) + ' / ' + quiz.list.length + '</span>' +
+        '<span class="pill ghost" id="comboPill">🔥 ' + quiz.combo + ' 콤보</span>' +
+      '</div>' +
+      '<div class="tbar"><i id="tfill"></i></div>' +
+      '<div class="qcard" id="qcard">' +
+        '<div class="tagline">' + q.tag + '</div>' +
+        '<p class="qtext">' + q.q + '</p>' +
+      '</div>' +
+      '<div class="choices" id="choices">' +
+        q.opts.map((o, i) =>
+          '<button class="choice" data-i="' + i + '"><i>' + 'ABCD'[i] + '</i><span>' + o.text + '</span></button>'
+        ).join('') +
+      '</div>' +
+      '<p class="small center" style="margin-top:16px">정답이면 바로 다음 문항 · 틀리면 즉시 해설</p>' +
+    '</div>';
+
+  const pill = $('#comboPill');
+  if (quiz.combo >= 2){ pill.classList.remove('ghost'); pill.classList.add('yolk'); }
+
+  $$('#choices .choice').forEach(btn => {
+    btn.addEventListener('click', () => answerQuiz(btn, parseInt(btn.dataset.i, 10)));
+  });
+  // 레벨업 축하 카드가 떠 있는 동안에는 타이머를 시작하지 않는다
+  if ($('#levelup').classList.contains('hidden')){
+    startQuizTimer();
+  } else {
+    quiz.left = QUIZ_DUR;
+    paintQuizTimer();
+    quiz.paused = true;
+  }
+}
+
+const QUIZ_DUR = 10000;
+function paintQuizTimer(){
+  const fill = $('#tfill');
+  if (!fill) return;
+  const p = Math.max(0, quiz.left) / QUIZ_DUR;
+  fill.style.width = (p * 100) + '%';
+  fill.classList.toggle('warn', quiz.left <= 3000);
+}
+function tickQuizTimer(){
+  quiz.left -= 100;
+  paintQuizTimer();
+  if (quiz.left <= 0){ stopQuizTimer(); quizTimeout(); }
+}
+function startQuizTimer(){
+  stopQuizTimer();
+  quiz.left = QUIZ_DUR;
+  paintQuizTimer();
+  quiz.timer = setInterval(tickQuizTimer, 100);
+}
+function resumeQuizTimer(){
+  if (quiz.timer || quiz.locked || !quiz.on) return;
+  if (quiz.left <= 0) return;
+  quiz.timer = setInterval(tickQuizTimer, 100);
+}
+
+function flyXP(text){
+  const card = $('#qcard');
+  if (!card) return;
+  const s = document.createElement('span');
+  s.className = 'xpfly';
+  s.textContent = text;
+  card.appendChild(s);
+  setTimeout(() => s.remove(), 950);
+}
+
+function answerQuiz(btn, idx){
+  if (quiz.locked) return;
+  quiz.locked = true;
+  stopQuizTimer();
+  const q = quiz.list[quiz.i];
+  const picked = q.opts[idx];
+
+  $$('#choices .choice').forEach((b, i) => {
+    if (q.opts[i].ok) b.classList.add('ok');
+    else if (i === idx) b.classList.add('bad');
+    else b.classList.add('dim');
+  });
+
+  if (picked.ok){
+    quiz.combo++; quiz.right++;
+    if (quiz.combo > quiz.best) quiz.best = quiz.combo;
+    if (quiz.combo > S.bestCombo) S.bestCombo = quiz.combo;
+    const pts = 12 + Math.min(quiz.combo - 1, 5) * 4;
+    quiz.xp += pts;
+    setCombo(quiz.combo);
+    sfx('ok');
+    flyXP('+' + pts + ' XP');
+    gainXP(pts);
+    setTimeout(nextQuiz, 760);
+  } else {
+    quiz.combo = 0;
+    quiz.wrong.push(q.tag.split(' · ')[0]);
+    setCombo(0);
+    sfx('bad');
+    explainQuiz(q, false);
+  }
+}
+
+function quizTimeout(){
+  if (quiz.locked) return;
+  quiz.locked = true;
+  const q = quiz.list[quiz.i];
+  $$('#choices .choice').forEach((b, i) => {
+    if (q.opts[i].ok) b.classList.add('ok');
+    else b.classList.add('dim');
+  });
+  quiz.combo = 0;
+  quiz.wrong.push(q.tag.split(' · ')[0]);
+  setCombo(0);
+  sfx('bad');
+  explainQuiz(q, true);
+}
+
+function explainQuiz(q, timeout){
+  const right = q.opts.filter(o => o.ok)[0].text;
+  openSheet(
+    '<h3>' + (timeout ? '⏱ 시간 초과' : '✕ 오답') + ' · ' + q.tag + '</h3>' +
+    '<p class="ans en">' + right + '</p>' +
+    '<p class="ex">' + q.ex + '</p>' +
+    '<button class="btn" id="sheetNext">' + (quiz.i + 1 >= quiz.list.length ? '결과 보기' : '계속하기') + '</button>'
+  );
+  $('#sheetNext').onclick = () => { closeSheet(); nextQuiz(); };
+}
+
+function nextQuiz(){
+  if (quiz.i + 1 >= quiz.list.length){ endQuiz(); return; }
+  quiz.i++;
+  renderQuizQ();
+}
+
+function endQuiz(){
+  stopQuizTimer();
+  quiz.on = false;
+  S.quizPlays = (S.quizPlays || 0) + 1;
+  if (quiz.right > S.quizBest) S.quizBest = quiz.right;
+  save();
+  const n = quiz.list.length, r = quiz.right;
+  let line = '지금 페이스면 충분해요. 틀린 태그만 다시 보면 됩니다.';
+  if (r >= 9) line = '완벽에 가까워요. 이 속도면 시험장에서 3초가 안 비어요.';
+  else if (r >= 7) line = '좋아요. 오답 태그 두 개만 다시 읽으면 바로 올라갑니다.';
+  else if (r <= 4) line = '괜찮아요. 3장 필러부터 다시 잡으면 됩니다.';
+  const uniq = quiz.wrong.filter((v, i, a) => a.indexOf(v) === i);
+  const reviewHtml = uniq.length
+    ? '<div class="card mt12" style="text-align:left">' +
+        '<p class="small" style="margin:0 0 9px">다시 볼 태그 · 교재 위치</p>' +
+        uniq.map(g => '<div class="pt"><b>!</b><span><b style="color:#14130F">' + g + '</b> — ' + (REVIEW_HINT[g] || '') + '</span></div>').join('') +
+      '</div>'
+    : '<div class="card mt12" style="text-align:left"><p class="small mb0">오답이 없어요. 다음은 <b style="color:#14130F">스토리 조립</b>으로 4단 뼈대를 몸에 붙이면 됩니다.</p></div>';
+  sfx('win');
+  $('#main').scrollTop = 0;
+  $('#main').innerHTML =
+    '<div class="screen result">' +
+      '<span class="pill yolk">ROUND CLEAR</span>' +
+      '<div class="big">' + r + ' <span style="color:#B9B3A6">/ ' + n + '</span></div>' +
+      '<p class="small">' + line + '</p>' +
+      '<div class="stat mt12">' +
+        '<div><b>' + quiz.best + '</b><small>이번 판 콤보</small></div>' +
+        '<div><b>' + quiz.xp + '</b><small>획득 XP</small></div>' +
+        '<div><b>' + S.bestCombo + '</b><small>역대 콤보</small></div>' +
+      '</div>' +
+      reviewHtml +
+      '<button class="btn mt12" id="againQuiz">다시 도전</button>' +
+      '<button class="btn ghost mt8" id="toStory">스토리 조립으로</button>' +
+    '</div>';
+  $('#againQuiz').onclick = () => startQuiz();
+  $('#toStory').onclick = () => setTab('story');
+  paintHeader();
+}
+
+/* =====================================================================
+   MODE 02 · 4단 스토리 조립
+   ===================================================================== */
+const STAGES = ['서론', '본론', '감정', '결론'];
+const story = {cur:null, need:0, pool:[], done:0};
+
+function renderStoryList(){
+  const doneCount = STORY.filter(s => S.stages[s.id]).length;
+  $('#main').scrollTop = 0;
+  $('#main').innerHTML =
+    '<div class="screen">' +
+      '<div class="hero">' +
+        '<div class="yolkdot"></div>' +
+        '<div class="kicker">MODE 02 · 9 STORIES</div>' +
+        '<h1>서론 → 본론 → 감정 → 결론</h1>' +
+        '<p>카드가 섞여 있습니다. 순서대로 탭하면 SOM 이야기가 한 편의 답변이 됩니다. 틀리면 그 자리에서 짚어 줍니다.</p>' +
+      '</div>' +
+      '<div class="sectitle"><h2>주제</h2><span>' + doneCount + ' / ' + STORY.length + ' 완성</span></div>' +
+      '<div class="topiclist">' +
+        STORY.map(s =>
+          '<button class="topic' + (S.stages[s.id] ? ' done' : '') + '" data-id="' + s.id + '">' +
+            '<span class="emo">' + s.emo + '</span>' +
+            '<span class="tx"><b>' + s.title + '</b><small>' + s.sub + '</small></span>' +
+            '<span class="st">' + (S.stages[s.id] ? '✓' : '→') + '</span>' +
+          '</button>'
+        ).join('') +
+      '</div>' +
+    '</div>';
+  $$('.topic').forEach(b => b.addEventListener('click', () => openStory(b.dataset.id)));
+  paintHeader();
+}
+
+function openStory(id){
+  const t = STORY.filter(s => s.id === id)[0];
+  if (!t) return;
+  story.cur = t;
+  story.need = 0;
+  story.pool = shuffle(t.cards.map((c, i) => ({ i:i, s:c.s, en:c.en, ko:c.ko })));
+  renderStoryPlay();
+}
+
+function renderStoryPlay(){
+  const t = story.cur;
+  $('#main').scrollTop = 0;
+  $('#main').innerHTML =
+    '<div class="screen">' +
+      '<div class="qtop">' +
+        '<button class="backbtn" id="backStory">‹ 목록</button>' +
+        '<span class="pill ghost">' + t.emo + ' ' + t.title + '</span>' +
+      '</div>' +
+      '<p class="small" style="margin:2px 2px 10px">' + ordinal[Math.min(story.need,3)] + ' <b style="color:#14130F">' + STAGES[Math.min(story.need,3)] + '</b> 카드를 고르세요. 남은 카드 ' + (4 - story.need) + '장.</p>' +
+      '<div class="slots" id="slots">' +
+        STAGES.map((s, i) =>
+          '<div class="slot' + (i < story.need ? ' filled' : '') + '" data-i="' + i + '">' +
+            '<span class="nm">' + ordinal[i] + ' ' + s + '</span>' +
+            '<span class="en2">' + (i < story.need ? placedCard(i).en : '') + '</span>' +
+          '</div>'
+        ).join('') +
+      '</div>' +
+      '<div class="pool" id="pool">' +
+        story.pool.map(c =>
+          '<button class="scard' + (c.i < story.need ? ' used' : '') + '" data-i="' + c.i + '">' +
+            '<span class="en">' + c.en + '</span>' +
+            '<span class="ko">' + c.ko + '</span>' +
+          '</button>'
+        ).join('') +
+      '</div>' +
+    '</div>';
+  $('#backStory').onclick = () => renderStoryList();
+  $$('#pool .scard').forEach(b => b.addEventListener('click', () => tapStory(b, parseInt(b.dataset.i, 10))));
+  paintHeader();
+}
+
+function placedCard(i){ return story.cur.cards[i]; }
+
+function tapStory(btn, i){
+  if (i < story.need) return;
+  if (i === story.need){
+    sfx('ok');
+    story.need++;
+    const slots = $$('#slots .slot');
+    const slot = slots[i];
+    slot.classList.add('filled');
+    slot.querySelector('.en2').textContent = placedCard(i).en;
+    btn.classList.add('used');
+    const head = $('#main .small');
+    if (head && story.need < 4){
+      head.innerHTML = ordinal[story.need] + ' <b style="color:#14130F">' + STAGES[story.need] + '</b> 카드를 고르세요. 남은 카드 ' + (4 - story.need) + '장.';
+    }
+    if (story.need === 4) setTimeout(finishStory, 420);
+  } else {
+    sfx('bad');
+    btn.classList.remove('shake');
+    void btn.offsetWidth;
+    btn.classList.add('shake');
+    toast('순서가 달라요 — 지금은 ' + ordinal[story.need] + '\u00A0' + STAGES[story.need] + ' 차례예요.');
+  }
+}
+
+function finishStory(){
+  const t = story.cur;
+  const first = !S.stages[t.id];
+  const pts = first ? 30 : 10;
+  S.stages[t.id] = true;
+  save();
+  sfx('win');
+  gainXP(pts);
+  $('#main').scrollTop = 0;
+  $('#main').innerHTML =
+    '<div class="screen">' +
+      '<div class="qtop"><span class="pill yolk">완성 ' + STAGES.length + '/4</span><span class="pill ghost">+' + pts + ' XP</span></div>' +
+      '<div class="qcard">' +
+        '<div class="tagline">' + t.emo + ' ' + t.title + '</div>' +
+        '<p class="qtext" style="font-size:15px">네 문장이 하나의 답변이 됐어요. 소리 내어 한 번 읽어 보세요.</p>' +
+      '</div>' +
+      '<div class="card">' +
+        t.cards.map((c, i) =>
+          '<div class="pt"><b>' + ordinal[i][0] + '</b><span class="en" style="font-size:12.5px;line-height:1.6">' + c.en + '</span></div>'
+        ).join('') +
+        '<div class="divider"></div>' +
+        '<p class="small mb0">이 구조를 시험장에서 그대로 씁니다. ' + t.cards[0].s + ' 여덟 초, 본론 스물두 초, 감정 열 초, 결론 다섯 초.</p>' +
+      '</div>' +
+      '<button class="btn" id="nextStory">다른 주제 조립하기</button>' +
+    '</div>';
+  $('#nextStory').onclick = () => renderStoryList();
+  paintHeader();
+}
+
+/* =====================================================================
+   MODE 03 · Ava 모의고사
+   ===================================================================== */
+const TOPIC_ORDER = ['intro','c4-1','c4-2','c4-3','c4-4','c4-5','c4-6','c4-7','dolbal','rp','adv'];
+const TOPIC_LABEL = {
+  intro:'자기소개', 'c4-1':'3D·작업', 'c4-2':'집·동네', 'c4-3':'영화·전시',
+  'c4-4':'카페·음악', 'c4-5':'푸꾸옥', 'c4-6':'건강·운동', 'c4-7':'테크·SNS',
+  dolbal:'돌발', rp:'롤플레이', adv:'어드밴스'
+};
+const mock = {list:[], i:0, left:60, timer:null, running:false, xp:0, open:false, label:''};
+
+const AVA_SVG =
+  '<svg class="avafig" viewBox="0 0 120 130" aria-label="Ava">' +
+    '<ellipse cx="60" cy="70" rx="47" ry="53" fill="#FFC400"/>' +
+    '<ellipse cx="60" cy="70" rx="47" ry="53" fill="none" stroke="#14130F" stroke-width="3"/>' +
+    '<ellipse class="eye blink" cx="45" cy="60" rx="5" ry="7.5" fill="#14130F"/>' +
+    '<ellipse class="eye blink" cx="75" cy="60" rx="5" ry="7.5" fill="#14130F"/>' +
+    '<ellipse cx="36" cy="77" rx="7" ry="4.5" fill="#E8632F" opacity=".38"/>' +
+    '<ellipse cx="84" cy="77" rx="7" ry="4.5" fill="#E8632F" opacity=".38"/>' +
+    '<path class="mouth" d="M53 82 q7 7 14 0" stroke="#14130F" stroke-width="3.6" fill="none" stroke-linecap="round"/>' +
+  '</svg>';
+
+function stopMockTimer(){ if (mock.timer){ clearInterval(mock.timer); mock.timer = null; } mock.running = false; }
+function stopSpeech(){ try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) {} }
+function stopAll(){ stopQuizTimer(); stopMockTimer(); stopSpeech(); }
+
+function renderMockIntro(){
+  stopMockTimer();
+  const groups = TOPIC_ORDER.map(id => ({
+    id: id,
+    label: TOPIC_LABEL[id],
+    n: MOCK.filter(m => m.topicId === id).length
+  })).filter(g => g.n > 0);
+
+  $('#main').scrollTop = 0;
+  $('#main').innerHTML =
+    '<div class="screen">' +
+      '<div class="ava">' + AVA_SVG + '<span class="nm2">AVA · INTERVIEWER</span></div>' +
+      '<div class="hero">' +
+        '<div class="yolkdot"></div>' +
+        '<div class="kicker">MODE 03 · SPEAKING TEST</div>' +
+        '<h1>실전 아바타 모의고사</h1>' +
+        '<p>Ava가 질문을 읽어 줍니다. 60초 타이머로 답하고, 막히면 모범답안과 핵심 포인트 3개를 열어 확인하세요.</p>' +
+      '</div>' +
+      '<div class="stat">' +
+        '<div><b>' + (S.mockDone || 0) + '</b><small>완료 문항</small></div>' +
+        '<div><b>' + MOCK.length + '</b><small>전체 문항</small></div>' +
+        '<div><b>' + S.grade + '</b><small>현재 등급</small></div>' +
+      '</div>' +
+      '<button class="btn accent mt12" id="random15">랜덤 15문항 시작</button>' +
+      '<div class="sectitle"><h2>주제별로 연습</h2><span>총 ' + MOCK.length + '문항</span></div>' +
+      '<div class="chips" id="topicChips">' +
+        groups.map(g => '<button data-id="' + g.id + '">' + g.label + ' · ' + g.n + '</button>').join('') +
+      '</div>' +
+    '</div>';
+
+  $('#random15').onclick = () => {
+    const intro = MOCK.filter(m => m.topicId === 'intro');
+    const rest = shuffle(MOCK.filter(m => m.topicId !== 'intro')).slice(0, 14);
+    startMock(intro.concat(rest), '랜덤 15문항');
+  };
+  $$('#topicChips button').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.id;
+    const list = MOCK.filter(m => m.topicId === id);
+    startMock(list, TOPIC_LABEL[id]);
+  }));
+  paintHeader();
+}
+
+function startMock(list, label){
+  if (!list.length) return;
+  mock.list = list; mock.i = 0; mock.xp = 0; mock.left = 60; mock.open = false; mock.label = label || '';
+  renderMockQ();
+}
+
+function paintRing(){
+  const c = 276.5;
+  const p = Math.max(0, Math.min(60, mock.left)) / 60;
+  const fg = $('#rfg');
+  if (!fg) return;
+  fg.style.strokeDashoffset = String(c * (1 - p));
+  fg.classList.toggle('low', mock.left <= 10);
+  const sec = $('#tsec');
+  if (sec) sec.textContent = String(Math.ceil(mock.left));
+}
+
+function renderMockQ(){
+  stopMockTimer();
+  stopSpeech();
+  mock.left = 60;
+  mock.open = false;
+  const m = mock.list[mock.i];
+  $('#main').scrollTop = 0;
+  $('#main').innerHTML =
+    '<div class="screen">' +
+      '<div class="qmeta">' +
+        '<button class="backbtn" id="mockBack">‹ 주제</button>' +
+        '<span class="pill">' + (mock.i + 1) + ' / ' + mock.list.length + '</span>' +
+      '</div>' +
+      '<div class="ava">' + AVA_SVG + '<span class="nm2">AVA · ' + m.no + '</span></div>' +
+      '<div class="qcard">' +
+        '<div class="tagline">' + m.kind + '</div>' +
+        '<p class="qtext en">' + m.q + '</p>' +
+        '<p class="small" style="margin:9px 0 0">' + m.alt + '</p>' +
+      '</div>' +
+      '<button class="btn ghost sm" id="speakBtn">🔊 질문 듣기</button>' +
+      '<div class="tbox mt12">' +
+        '<div class="ringwrap">' +
+          '<svg class="ring" viewBox="0 0 100 100">' +
+            '<circle class="rbg" cx="50" cy="50" r="44"/>' +
+            '<circle class="rfg" id="rfg" cx="50" cy="50" r="44"/>' +
+          '</svg>' +
+          '<div class="ringtxt"><b id="tsec">60</b><small>SEC</small></div>' +
+        '</div>' +
+        '<div class="side">' +
+          '<p id="tmsg">답변은 40~60초. 6문장이면 충분합니다.</p>' +
+          '<div class="btnrow">' +
+            '<button class="btn sm" id="tstart">답변 시작</button>' +
+            '<button class="btn ghost sm" id="treset">초기화</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<button class="btn line sm" id="modelBtn">💡 모범답안 & 핵심 포인트 3개</button>' +
+      '<div id="modelBox"></div>' +
+      '<button class="btn accent mt12" id="doneBtn">답변 완료 · +25 XP</button>' +
+    '</div>';
+
+  paintRing();
+  $('#mockBack').onclick = () => { stopAll(); renderMockIntro(); };
+  $('#speakBtn').onclick = () => speakMock(m);
+  $('#tstart').onclick = () => toggleAnswerTimer();
+  $('#treset').onclick = () => { stopMockTimer(); mock.left = 60; paintRing(); $('#tstart').textContent = '답변 시작'; $('#tmsg').textContent = '답변은 40~60초. 6문장이면 충분합니다.'; };
+  $('#modelBtn').onclick = () => toggleModel(m);
+  $('#doneBtn').onclick = () => finishMockQ();
+  paintHeader();
+}
+
+function speakMock(m){
+  const text = m.q + (m.alt && m.alt.indexOf('핵심 표현') !== 0 ? ' ' + m.alt : '');
+  if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined'){
+    toast('이 기기에서는 음성을 지원하지 않아요. 질문을 읽어 보세요.');
+    return;
+  }
+  try {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(m.q);
+    u.lang = 'en-US';
+    u.rate = 0.92;
+    u.pitch = 1.02;
+    u.onstart = () => { const a = $('.ava'); if (a) a.classList.add('talking'); };
+    u.onend = () => { const a = $('.ava'); if (a) a.classList.remove('talking'); };
+    u.onerror = () => { const a = $('.ava'); if (a) a.classList.remove('talking'); };
+    window.speechSynthesis.speak(u);
+    if (!S.muted) sfx('tap');
+  } catch (e) {
+    toast('음성을 재생하지 못했어요. 질문을 읽어 보세요.');
+  }
+}
+
+function toggleAnswerTimer(){
+  if (mock.running){
+    stopMockTimer();
+    $('#tstart').textContent = '계속';
+    return;
+  }
+  if (mock.left <= 0){ mock.left = 60; paintRing(); }
+  mock.running = true;
+  sfx('tap');
+  $('#tstart').textContent = '일시정지';
+  $('#tmsg').textContent = '답변 중… 60초를 넘겨도 괜찮아요, 끝까지 말해 보세요.';
+  mock.timer = setInterval(() => {
+    mock.left -= 0.2;
+    if (mock.left <= 0){
+      mock.left = 0;
+      paintRing();
+      stopMockTimer();
+      sfx('win');
+      $('#tstart').textContent = '다시';
+      $('#tmsg').textContent = '60초 완료! 수고했어요. 완료를 눌러 XP를 받으세요.';
+      return;
+    }
+    paintRing();
+  }, 200);
+}
+
+function toggleModel(m){
+  mock.open = !mock.open;
+  const box = $('#modelBox');
+  if (!mock.open){ box.innerHTML = ''; $('#modelBtn').textContent = '💡 모범답안 & 핵심 포인트 3개'; return; }
+  $('#modelBtn').textContent = '모범답안 닫기';
+  box.innerHTML =
+    '<div class="model mt12">' +
+      '<h4>MODEL ANSWER</h4>' +
+      '<p class="en">' + m.en + '</p>' +
+      '<p class="ko">' + m.ko + '</p>' +
+      '<h4>KEY POINTS</h4>' +
+      m.pts.map((p, i) => '<div class="pt"><b>' + (i + 1) + '</b><span>' + p + '</span></div>').join('') +
+    '</div>';
+  setTimeout(() => { const el = $('.model'); if (el) el.scrollIntoView({ behavior:'smooth', block:'start' }); }, 40);
+}
+
+function finishMockQ(){
+  stopMockTimer();
+  stopSpeech();
+  S.mockDone = (S.mockDone || 0) + 1;
+  mock.xp += 25;
+  save();
+  sfx('win');
+  gainXP(25);
+  toast('+25 XP · 답변 완료');
+  if (mock.i + 1 >= mock.list.length){ endMock(); return; }
+  mock.i++;
+  renderMockQ();
+}
+
+function endMock(){
+  $('#main').scrollTop = 0;
+  $('#main').innerHTML =
+    '<div class="screen result">' +
+      '<span class="pill yolk">MOCK COMPLETE</span>' +
+      '<div class="big">' + mock.list.length + ' <span style="color:#B9B3A6">문항</span></div>' +
+      '<p class="small">' + mock.label + ' 세션 완료 · ' + mock.xp + ' XP 획득</p>' +
+      '<div class="stat mt12">' +
+        '<div><b>' + S.mockDone + '</b><small>누적 완료</small></div>' +
+        '<div><b>' + S.grade + '</b><small>현재 등급</small></div>' +
+        '<div><b>' + S.xp + '</b><small>누적 XP</small></div>' +
+      '</div>' +
+      '<div class="card mt12" style="text-align:left">' +
+        '<p class="small mb0">다음엔 <b style="color:#14130F">롤플레이 11~13번</b>을 이어서 해 보세요. 11번은 질문 4개, 12번은 요청과 대안, 13번은 12번과 같은 사건을 과거 경험으로 다시 정리하는 것이 핵심입니다.</p>' +
+      '</div>' +
+      '<button class="btn mt12" id="mockAgain">같은 주제 다시</button>' +
+      '<button class="btn ghost mt8" id="mockHome">주제 선택</button>' +
+    '</div>';
+  $('#mockAgain').onclick = () => startMock(mock.list, mock.label);
+  $('#mockHome').onclick = () => renderMockIntro();
+  paintHeader();
+}
+
+/* =====================================================================
+   탭 · 렌더
+   ===================================================================== */
+let TAB = 'quiz';
+function setTab(t){
+  TAB = t;
+  $$('.tab').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  stopAll();
+  closeSheet();
+  if (t === 'quiz') renderQuizIntro();
+  else if (t === 'story') renderStoryList();
+  else renderMockIntro();
+  $('#main').scrollTop = 0;
+}
+$$('.tab').forEach(b => b.addEventListener('click', () => {
+  audio();
+  sfx('tap');
+  setTab(b.dataset.tab);
+}));
+
+/* 시작 */
+paintHeader();
+setTab('quiz');
+</script>
+</body>
+</html>
